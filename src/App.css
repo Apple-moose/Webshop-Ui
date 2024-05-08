@@ -12,7 +12,20 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
-
+.productDisplay {
+  padding: 1rem;
+  float: left;
+}
+.product {
+  height: 20rem;
+  width: 20rem;
+}
+.right {
+  float: right;
+}
+.left {
+  float: left;
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

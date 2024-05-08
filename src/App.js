@@ -1,23 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+// import PostPage from "./pages/PostPage";
+// import LoginPage from "./pages/LoginPage";
+import Toolbar from "./components/Toolbar";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+// import { bootstrapLogInState } from "./store/auth/actions";
+// import { bootstrapNewLogInState } from "./store/signup/actions";
+// import UserPostPage from "./pages/UserPostPage";
 
 function App() {
+  // const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   dispatch(bootstrapLogInState());
+  //   dispatch(bootstrapNewLogInState());
+  // }, [dispatch]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Toolbar />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        {/* <Route path="/post/:id" element={<PostPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/newPost" element={<UserPostPage />} /> */}
+      </Routes>
     </div>
   );
 }
