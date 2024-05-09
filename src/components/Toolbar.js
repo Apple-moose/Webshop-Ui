@@ -14,8 +14,10 @@ export default function Toolbar() {
 
   return (
     <div>
-        <h1>Welcome to Apple-Moose's Webshop</h1>
-        <hr></hr>
+      <Link to={`./.`}>
+        <h1>Apple-Moose's Webshop</h1>
+      </Link>
+      <hr></hr>
       {/* <h2 style={{ color: "white" }}>
         <Link to={"./."}>HOME</Link>
       </h2> */}

@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
+import ProductPage from "./pages/ProductPage";
 // import PostPage from "./pages/PostPage";
 // import LoginPage from "./pages/LoginPage";
 import Toolbar from "./components/Toolbar";
@@ -24,8 +25,8 @@ function App() {
       <Toolbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        {/* <Route path="/post/:id" element={<PostPage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/:id" element={<ProductPage />} />
+        {/* <Route path="/login" element={<LoginPage />} />
         <Route path="/newPost" element={<UserPostPage />} /> */}
       </Routes>
     </div>

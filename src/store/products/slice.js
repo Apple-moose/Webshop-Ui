@@ -13,10 +13,23 @@ const productsSlice = createSlice({
       state.loading = true;
     },
     productsFetched: (state, action) => {
-      console.log("products Fetched : ", action);
+      // console.log("products Fetched : ", action);
       state.products = [...state.products, ...action.payload];
       state.loading = false;
     },
+    // productSeen: (state, action) => {
+    //   const prodId = action.payload;
+    //   const addSeen = () =>
+    //     state.products.map((idP) => {
+    //       if (idP.id === prodId) {
+    //         return { ...idP, seen: idP.seen + 1 };
+    //       } else {
+    //         return idP;
+    //       }
+    //     });
+    //   addSeen();
+    //   console.log("new Array:", state.products);
+    // },
   },
 });
 

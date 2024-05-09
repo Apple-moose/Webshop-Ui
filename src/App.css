@@ -20,12 +20,38 @@
   height: 20rem;
   width: 20rem;
 }
+.productFull {
+  float: left;
+  height: 30rem;
+  width: 30rem;
+}
+.productFullTitle {
+  text-align: left;
+  font-size: 3rem;
+  font-weight: bold;
+}
+.productMinimalTxt {
+  text-align: left;
+  font-size: 1rem;
+}
+
+.productDescTxt {
+  text-align: left;
+  font-size: 1.5rem;
+  font-weight: normal;
+}
+
+.productFullTxt {
+  text-align: left;
+  font-size: 2rem;
+}
 .right {
   float: right;
 }
 .left {
   float: left;
 }
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
