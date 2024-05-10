@@ -3,7 +3,7 @@ import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import ProductPage from "./pages/ProductPage";
-// import PostPage from "./pages/PostPage";
+import UserCartPage from "./pages/UserCartPage";
 // import LoginPage from "./pages/LoginPage";
 import Toolbar from "./components/Toolbar";
 import { useEffect } from "react";
@@ -26,8 +26,8 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/:id" element={<ProductPage />} />
-        {/* <Route path="/login" element={<LoginPage />} />
-        <Route path="/newPost" element={<UserPostPage />} /> */}
+        {/* <Route path="/login" element={<LoginPage />} /> */}
+        <Route path="/Cart" element={<UserCartPage />} />
       </Routes>
     </div>
   );

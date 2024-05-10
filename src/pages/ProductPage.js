@@ -1,10 +1,11 @@
 import "../App.css";
-import { useParams } from "react-router-dom";
+import { BsCartPlus } from "react-icons/bs";
+import { useParams, Link } from "react-router-dom";
 import { useEffect } from "react";
 import { fetchFullProduct } from "../store/productFullPage/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { selectFullProduct } from "../store/productFullPage/selectors";
-import { selectSeen } from "../store/seen/selectors";
+import { selectUser } from "../store/user/selectors";
 
 export default function ProductPage() {
   const { id } = useParams();
@@ -23,8 +24,8 @@ export default function ProductPage() {
   }, [dispatch, id]);
 
   const product = useSelector(selectFullProduct);
-  const seen = useSelector(selectSeen);
-  console.log("newArray:", seen);
+  const user = useSelector(selectUser);
+  console.log("newArray:", user);
 
   return (
     <>
@@ -45,16 +46,19 @@ export default function ProductPage() {
                   if (cat.id === product.categoryId) return cat.name;
                 })}{" "}
                 👁️:
-                {seen.map((pr) => {
+                {user.map((pr) => {
                   if (product.id === pr.id) return pr.seen;
                 })}
               </p>
               <p className="productDescTxt">{product.description}</p>
             </p>
-            <p>
-              €{product.price}{" "}
-              <span className="productMinimalTxt">add to cart</span>
-            </p>
+            <span className="leftBig">
+              €{product.price}{" "}</span>
+              <span className="addToCartTxt">add to cart
+              <button className="button">
+      <BsCartPlus />
+      </button >
+      </span>
           </>
         )}
       </div>

@@ -4,14 +4,15 @@ import { Link } from "react-router-dom";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectProducts } from "../store/products/selectors";
-import { selectSeen } from "../store/seen/selectors";
+import { selectUser } from "../store/user/selectors";
 import { fetchProducts } from "../store/products/actions";
-import { productSeen } from "../store/seen/slice";
+import { productSeen } from "../store/user/slice";
+import { CartEmpty, CartFull } from "./CartButtons";
 
 export default function ProductBlock() {
   const dispatch = useDispatch();
   const product = useSelector(selectProducts);
-  const seen = useSelector(selectSeen);
+  const user = useSelector(selectUser);
 
   const categories = [
     { id: 1, name: "Electronics" },
@@ -23,9 +24,11 @@ export default function ProductBlock() {
   ];
   useEffect(() => {
     dispatch(fetchProducts);
+    // dispatch(pushInUserArray)
   }, [dispatch]);
 
-  // console.log(product);
+
+  console.log("Buying array?:", user);
 
   return product.map((pro) => {
     return (
@@ -47,31 +50,25 @@ export default function ProductBlock() {
               {categories.map((cat) => {
                 if (cat.id === pro.categoryId) return cat.name;
               })}{" "}
-              👁️:
-              {seen.map((pr) => {
-                if (pro.id === pr.id) return pr.seen;
+              👁️
+              {user.map((pr) => {
+                if (pro.id === pr.id) {
+                  return `:${pr.seen}`;
+                }
               })}{" "}
             </span>
           </p>
-          <p>
-            €{pro.price} <span className="right">add to cart</span>
-          </p>
+          <span className="left">€{pro.price} </span>
+          {user.map((u) => {
+            if (u.id === pro.id)
+              return u.buy > 0 ? (
+                <CartFull key={u.id} id={u.id} buy={u.buy} />
+              ) : (
+                <CartEmpty key={u.id} id={u.id} />
+              );
+          })}
+          ;
         </div>
-        {/* <button
-            onClick={() => dispatch(toggleFavorite(pizza.id))}
-            className={`fav-toggle ${
-              user.favorites.includes(pizza.id) ? "fav" : ""
-            }`}
-          >
-            {" "}
-            {user.favorites.includes(pizza.id) ? "♥️" : "♡"}
-          </button>{" "} */}
-        {/* <div className="overlay">
-            <span>{p.description}</span>
-            <span>
-              <strong>was bought:</strong> {pizza.bought} times
-            </span>
-          </div> */}
       </>
     );
   });

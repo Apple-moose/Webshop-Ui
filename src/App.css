@@ -21,6 +21,7 @@
   width: 20rem;
 }
 .productFull {
+  margin-right: 2rem;
   float: left;
   height: 30rem;
   width: 30rem;
@@ -40,16 +41,38 @@
   font-size: 1.5rem;
   font-weight: normal;
 }
-
+.button {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+}
+.button2 {
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+}
 .productFullTxt {
   text-align: left;
   font-size: 2rem;
+  margin-left: 2rem;
+}
+.addToCartTxt {
+  text-align: right;
+  font-size: 1.5rem;
+  float: right;
+  margin-right: 1rem;
 }
 .right {
+  margin-right: 1rem;
   float: right;
 }
 .left {
+  margin-left: 0.2rem;
   float: left;
+}
+.leftBig {
+  float: left;
+  font-size: 1.5rem
 }
 
 .App-header {
