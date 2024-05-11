@@ -3,6 +3,8 @@ import { BsCart4 } from "react-icons/bs";
 import MooseIcon from "./MooseIcon.png";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { selectBank } from "../store/bank/selectors";
+import { selectUser } from "../store/user/selectors";
 // import { selectAuth } from "../store/auth/selectors";
 // import { userLogOut } from "../store/auth/slice";
 // import { newUserLogOut } from "../store/signup/slice";
@@ -10,6 +12,15 @@ import { useSelector, useDispatch } from "react-redux";
 
 export default function Toolbar() {
   const [count] = useState(0);
+  const totalCartAmount = useSelector(selectBank);
+  const user = useSelector(selectUser);
+
+  const totalItemInCart = user.reduce(
+    (value, currentValue) => value + currentValue.buy,
+    0
+  );
+  console.log("items in cart:", totalItemInCart);
+
   //   const dispatch = useDispatch();
   //   const navigate = useNavigate();
   //   const userName = useSelector(selectAuth);
@@ -21,17 +32,17 @@ export default function Toolbar() {
         <span className="App-header">
           .Apple-Moose's
           {count === 0 ? (
-          <Link to={`./.`}>
-            <img src={MooseIcon} alt="moose roadsign" className="logo"></img>
-          </Link>
+            <Link to={`./.`}>
+              <img src={MooseIcon} alt="moose roadsign" className="logo"></img>
+            </Link>
           ) : (
             <Link to={`./.`} onClick={(event) => event.preventDefault()}>
-            <img src={MooseIcon} alt="moose roadsign" className="logo"></img>
-          </Link>
+              <img src={MooseIcon} alt="moose roadsign" className="logo"></img>
+            </Link>
           )}
           Webshop{" "}
           <span className="rightBig">
-            got to
+            go to&nbsp;
             {count === 0 ? (
               <Link to="./Cart">
                 <BsCart4 />
@@ -41,38 +52,12 @@ export default function Toolbar() {
                 <BsCart4 />
               </Link>
             )}
+            <p className="rightSmall">
+              {totalItemInCart} items, total €{totalCartAmount}
+            </p>
           </span>
         </span>
-        {/* <hr></hr> */}
       </div>
     </>
   );
-}
-{
-  /* <h2 style={{ color: "white" }}>
-        <Link to={"./."}>HOME</Link>
-      </h2> */
-}
-{
-  /* <h2 style={{ color: "white" }}>
-        {!newUserName.me && !userName.me ? (
-          <Link to={"./login"}>login</Link>
-        ) : (
-          <>
-            <h3>
-              Welcome {newUserName.me} {userName.me} {""}
-              <button
-                onClick={() =>
-                  dispatch(userLogOut(), dispatch(newUserLogOut()))
-                }
-              >
-                Log out!
-              </button>
-              <button onClick={() => navigate("./newPost")}>
-                Make a Post yourself!
-              </button>
-            </h3>
-          </>
-        )}
-      </h2> */
 }

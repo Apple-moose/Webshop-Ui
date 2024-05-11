@@ -57,9 +57,14 @@ export default function ProductPage() {
               {user.map((u) => {
                 if (u.id === product.id)
                   return u.buy > 0 ? (
-                    <CartFull key={u.id} id={u.id} buy={u.buy} />
+                    <CartFull
+                      key={u.id}
+                      id={u.id}
+                      buy={u.buy}
+                      price={product.price}
+                    />
                   ) : (
-                    <CartEmpty key={u.id} id={u.id} />
+                    <CartEmpty key={u.id} id={u.id} price={product.price} />
                   );
               })}
             </span>

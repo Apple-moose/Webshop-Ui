@@ -82,6 +82,12 @@
   margin-right: 1rem;
   float: right;
 }
+.rightSmall {
+  position: absolute !important;
+  right: 5% !important;
+  font-weight: normal !important;
+  font-size: 1rem !important;
+}
 .rightBig {
   float: right !important;
   font-size: 2rem !important;

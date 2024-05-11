@@ -4,16 +4,22 @@ import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import ProductPage from "./pages/ProductPage";
 import UserCartPage from "./pages/UserCartPage";
-// import LoginPage from "./pages/LoginPage";
 import Toolbar from "./components/Toolbar";
+// import LoginPage from "./pages/LoginPage";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { fetchProducts } from "./store/products/actions";
+
 // import { bootstrapLogInState } from "./store/auth/actions";
 // import { bootstrapNewLogInState } from "./store/signup/actions";
 // import UserPostPage from "./pages/UserPostPage";
 
 function App() {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchProducts);
+  }, [dispatch]);
 
   // useEffect(() => {
   //   dispatch(bootstrapLogInState());

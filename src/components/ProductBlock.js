@@ -1,10 +1,9 @@
 import "../App.css";
 import { Link } from "react-router-dom";
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectProducts } from "../store/products/selectors";
 import { selectUser } from "../store/user/selectors";
-import { fetchProducts } from "../store/products/actions";
 import { productSeen } from "../store/user/slice";
 import { CartEmpty, CartFull } from "./CartButtons";
 
@@ -21,10 +20,6 @@ export default function ProductBlock() {
     { id: 7, name: "Games" },
     { id: 8, name: "Sport" },
   ];
-  useEffect(() => {
-    dispatch(fetchProducts);
-    // dispatch(pushInUserArray)
-  }, [dispatch]);
 
   console.log("Buying array?:", user);
 
