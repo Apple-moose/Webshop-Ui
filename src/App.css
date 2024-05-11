@@ -53,6 +53,24 @@
   border: none;
   font-size: 1rem;
 }
+.buttonBuy {
+  position: absolute !important;
+  right: 15% !important;
+  bottom: 10%;
+  font-size: 2rem !important;
+  font-weight: bold;
+  align-items: right !important;
+  margin-right: 3rem;
+}
+.buttonReset {
+  position: absolute !important;
+  right: 5% !important;
+  bottom: 10%;
+  font-size: 2rem !important;
+  font-weight: bold;
+  align-items: right !important;
+  margin-right: 3rem;
+}
 .productFullTxt {
   text-align: left;
   font-size: 2rem;
@@ -89,7 +107,8 @@
   font-size: 1rem !important;
 }
 .rightBig {
-  float: right !important;
+  position: absolute !important;
+  right: 5% !important;
   font-size: 2rem !important;
   font-weight: bold;
   align-items: right !important;
@@ -109,10 +128,8 @@
   background-color: #787b81;
   min-height: 1.5rem;
   display: flow-root;
-  /* margin-bottom: 2rem; */
-  /* flex-direction: column; */
+  /* margin-left: 1rem; */
   align-items: center;
-  /* justify-content: center; */
   font-size: 2.5rem;
   color: white;
 }

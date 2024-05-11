@@ -26,6 +26,13 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
+    resetCartData: (state) => {
+      state.userArray = state.userArray.map((pro) => {
+        return { ...pro, seen: 0, buy: 0 };
+      });       
+       console.log("reset button clicked");
+
+    },
     addToCart: (state, action) => {
       const pId = action.payload;
       const idArray = state.userArray.map((i) => {
@@ -71,7 +78,6 @@ const userSlice = createSlice({
   },
 });
 
-export const { productSeen, addToCart, reduceCart, pushInUserArray } =
-  userSlice.actions;
+export const { productSeen, addToCart, reduceCart, resetCartData } = userSlice.actions;
 
 export default userSlice.reducer;

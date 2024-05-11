@@ -5,6 +5,7 @@ import HomePage from "./pages/HomePage";
 import ProductPage from "./pages/ProductPage";
 import UserCartPage from "./pages/UserCartPage";
 import Toolbar from "./components/Toolbar";
+import BuyPage from "./pages/BuyPage";
 // import LoginPage from "./pages/LoginPage";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -34,6 +35,8 @@ function App() {
         <Route path="/:id" element={<ProductPage />} />
         {/* <Route path="/login" element={<LoginPage />} /> */}
         <Route path="/Cart" element={<UserCartPage />} />
+        <Route path="/Buy" element={<BuyPage />} />
+
       </Routes>
     </div>
   );
