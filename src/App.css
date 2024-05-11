@@ -1,9 +1,11 @@
 .App {
   text-align: center;
 }
-
+.logo {
+  height: 5rem;
+}
 .App-logo {
-  height: 40vmin;
+  height: 10rem;
   pointer-events: none;
 }
 
@@ -62,9 +64,30 @@
   float: right;
   margin-right: 1rem;
 }
+.cartTxt {
+  font-size: 2rem;
+  min-height: 1rem;
+  margin-left: 2rem;
+  margin: 2rem;
+  padding-bottom: 1rem;
+}
+.cartButtons {
+  font-size: 1.5rem;
+  min-height: 10rem;
+  position: absolute !important;
+  right: 5% !important;
+  margin: auto;
+}
 .right {
   margin-right: 1rem;
   float: right;
+}
+.rightBig {
+  float: right !important;
+  font-size: 2rem !important;
+  font-weight: bold;
+  align-items: right !important;
+  margin-right: 3rem;
 }
 .left {
   margin-left: 0.2rem;
@@ -72,17 +95,19 @@
 }
 .leftBig {
   float: left;
-  font-size: 1.5rem
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  background-color: #787b81;
+  min-height: 1.5rem;
+  display: flow-root;
+  /* margin-bottom: 2rem; */
+  /* flex-direction: column; */
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  /* justify-content: center; */
+  font-size: 2.5rem;
   color: white;
 }
 

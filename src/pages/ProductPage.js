@@ -1,11 +1,11 @@
 import "../App.css";
-import { BsCartPlus } from "react-icons/bs";
 import { useParams, Link } from "react-router-dom";
 import { useEffect } from "react";
 import { fetchFullProduct } from "../store/productFullPage/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { selectFullProduct } from "../store/productFullPage/selectors";
 import { selectUser } from "../store/user/selectors";
+import { CartEmpty, CartFull } from "../components/CartButtons";
 
 export default function ProductPage() {
   const { id } = useParams();
@@ -25,7 +25,7 @@ export default function ProductPage() {
 
   const product = useSelector(selectFullProduct);
   const user = useSelector(selectUser);
-  console.log("newArray:", user);
+  // console.log("newArray:", user);
 
   return (
     <>
@@ -52,13 +52,17 @@ export default function ProductPage() {
               </p>
               <p className="productDescTxt">{product.description}</p>
             </p>
-            <span className="leftBig">
-              €{product.price}{" "}</span>
-              <span className="addToCartTxt">add to cart
-              <button className="button">
-      <BsCartPlus />
-      </button >
-      </span>
+            <span className="leftBig">€{product.price} </span>
+            <span className="rightBig">
+              {user.map((u) => {
+                if (u.id === product.id)
+                  return u.buy > 0 ? (
+                    <CartFull key={u.id} id={u.id} buy={u.buy} />
+                  ) : (
+                    <CartEmpty key={u.id} id={u.id} />
+                  );
+              })}
+            </span>
           </>
         )}
       </div>

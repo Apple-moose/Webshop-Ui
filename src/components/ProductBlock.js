@@ -1,6 +1,5 @@
 import "../App.css";
 import { Link } from "react-router-dom";
-// import "./Styles.css";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectProducts } from "../store/products/selectors";
@@ -27,7 +26,6 @@ export default function ProductBlock() {
     // dispatch(pushInUserArray)
   }, [dispatch]);
 
-
   console.log("Buying array?:", user);
 
   return product.map((pro) => {
@@ -40,6 +38,7 @@ export default function ProductBlock() {
                 className="product"
                 src={pro.imageUrl}
                 alt="not found!"
+                key={pro.id}
               ></img>
             </button>
           </Link>
@@ -62,12 +61,11 @@ export default function ProductBlock() {
           {user.map((u) => {
             if (u.id === pro.id)
               return u.buy > 0 ? (
-                <CartFull key={u.id} id={u.id} buy={u.buy} />
+                <CartFull key={u.id} id={u.id} buy={u.buy} price={pro.price} />
               ) : (
-                <CartEmpty key={u.id} id={u.id} />
+                <CartEmpty key={u.id} id={u.id} price={pro.price} />
               );
           })}
-          ;
         </div>
       </>
     );

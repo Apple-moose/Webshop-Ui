@@ -5,12 +5,12 @@ const initialState = {
     { id: 1, seen: 0, buy: 0 },
     { id: 2, seen: 0, buy: 0 },
     { id: 3, seen: 0, buy: 0 },
-    { id: 4, seen: 0, buy: 4 },
+    { id: 4, seen: 0, buy: 0 },
     { id: 5, seen: 0, buy: 0 },
     { id: 6, seen: 0, buy: 0 },
     { id: 7, seen: 0, buy: 0 },
     { id: 8, seen: 0, buy: 0 },
-    { id: 9, seen: 2, buy: 2 },
+    { id: 9, seen: 0, buy: 0 },
     { id: 10, seen: 0, buy: 0 },
     { id: 11, seen: 0, buy: 0 },
     { id: 12, seen: 0, buy: 0 },
@@ -19,7 +19,6 @@ const initialState = {
     { id: 15, seen: 0, buy: 0 },
     { id: 16, seen: 0, buy: 0 },
     { id: 17, seen: 0, buy: 0 },
-
   ],
 };
 
@@ -27,21 +26,6 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    // pushInUserArray: (state, action) => {
-    //   const pId = action.payload;
-    //   const idArray = state.userArray.map((i) => {
-    //     return i.id;
-    //   });
-    //   const pushData = () => {
-    //     idArray.map((i) => {
-    //       if (i === pId) return {};
-    //       else {
-    //         state.userArray.push({ id: pId, seen: 0, buy: 0 });
-    //       }
-    //     });
-    //   };
-    //   pushData();
-    // },
     addToCart: (state, action) => {
       const pId = action.payload;
       const idArray = state.userArray.map((i) => {
