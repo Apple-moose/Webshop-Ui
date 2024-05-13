@@ -19,7 +19,6 @@ export default function Toolbar() {
     (value, currentValue) => value + currentValue.buy,
     0
   );
-  console.log("items in cart:", totalItemInCart);
 
   //   const dispatch = useDispatch();
   //   const navigate = useNavigate();
@@ -51,7 +50,7 @@ export default function Toolbar() {
               <Link to="./Cart" onClick={(event) => event.preventDefault()}>
                 <BsCart4 />
               </Link>
-            )}
+            )} 
             <p className="rightSmall">
               {totalItemInCart} items, total €{totalCartAmount}
             </p>

@@ -10,6 +10,7 @@ import BuyPage from "./pages/BuyPage";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchProducts } from "./store/products/actions";
+import { bootstrapUser } from "./store/user/slice";
 
 // import { bootstrapLogInState } from "./store/auth/actions";
 // import { bootstrapNewLogInState } from "./store/signup/actions";
@@ -36,7 +37,6 @@ function App() {
         {/* <Route path="/login" element={<LoginPage />} /> */}
         <Route path="/Cart" element={<UserCartPage />} />
         <Route path="/Buy" element={<BuyPage />} />
-
       </Routes>
     </div>
   );

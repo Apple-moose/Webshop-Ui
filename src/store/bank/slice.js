@@ -10,20 +10,26 @@ const bankSlice = createSlice({
   reducers: {
     addAmount: (state, action) => {
       state.amount = state.amount + action.payload;
-      console.log("amount added:",action.payload);
+      //LocalStorage function______________________________
+      localStorage.setItem("userBank", JSON.stringify(state.amount));
     },
     reduceAmount: (state, action) => {
       state.amount = state.amount - action.payload;
-      console.log("amount reduced:",action.payload);
-
+      //LocalStorage function______________________________
+      localStorage.setItem("userBank", JSON.stringify(state.amount));
     },
     reset: (state) => {
-      console.log("reset!");
       state.amount = initialState.amount;
+      //LocalStorage function______________________________
+      localStorage.setItem("userBank", JSON.stringify(state.amount));
+    },
+    bootstrapBank: (state) => {
+      state.amount = JSON.parse(localStorage.getItem("userBank"));
     },
   },
 });
 
-export const { addAmount, reduceAmount, reset } = bankSlice.actions;
+export const { addAmount, reduceAmount, reset, bootstrapBank } =
+  bankSlice.actions;
 
 export default bankSlice.reducer;

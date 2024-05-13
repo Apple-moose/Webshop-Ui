@@ -16,10 +16,6 @@ export default function UserCartPage() {
   const total = useSelector(selectBank);
   console.log("newArray:", user);
 
-  // const goToBuyPage = (event) => {
-  //   navigate(`./${event.target.value}`);
-  // };
-
   if (total === 0) return <h1>Your Shopping Cart is Empty!</h1>;
   else
     return (

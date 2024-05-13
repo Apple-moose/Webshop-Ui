@@ -29,9 +29,9 @@ const userSlice = createSlice({
     resetCartData: (state) => {
       state.userArray = state.userArray.map((pro) => {
         return { ...pro, seen: 0, buy: 0 };
-      });       
-       console.log("reset button clicked");
-
+      });
+      //LocalStorage function______________________________
+      localStorage.setItem("userData", JSON.stringify(state.userArray));
     },
     addToCart: (state, action) => {
       const pId = action.payload;
@@ -48,6 +48,8 @@ const userSlice = createSlice({
             }
           }))
         : state.userArray.push({ id: pId, buy: 1 });
+      //LocalStorage function______________________________
+      localStorage.setItem("userData", JSON.stringify(state.userArray));
     },
     reduceCart: (state, action) => {
       const pId = action.payload;
@@ -58,6 +60,8 @@ const userSlice = createSlice({
           return { ...pro };
         }
       });
+      //LocalStorage function______________________________
+      localStorage.setItem("userData", JSON.stringify(state.userArray));
     },
     productSeen: (state, action) => {
       const prodId = action.payload;
@@ -74,10 +78,21 @@ const userSlice = createSlice({
             }
           }))
         : state.userArray.push({ id: prodId, seen: 1, buy: 0 });
+      //LocalStorage function______________________________
+      localStorage.setItem("userData", JSON.stringify(state.userArray));
+    },
+    bootstrapUser: (state) => {
+      state.userArray = JSON.parse(localStorage.getItem("userData"));
     },
   },
 });
 
-export const { productSeen, addToCart, reduceCart, resetCartData } = userSlice.actions;
+export const {
+  productSeen,
+  addToCart,
+  reduceCart,
+  resetCartData,
+  bootstrapUser,
+} = userSlice.actions;
 
 export default userSlice.reducer;
