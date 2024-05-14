@@ -2,15 +2,28 @@ import "../App.css";
 import { Link } from "react-router-dom";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectProducts } from "../store/products/selectors";
+import {
+  selectProducts,
+  selectProductsByNames,
+  selectProductsByTags,
+  selectProductsByPrices,
+  selectFilteredProducts,
+} from "../store/products/selectors";
 import { selectUser } from "../store/user/selectors";
 import { productSeen } from "../store/user/slice";
 import { CartEmpty, CartFull } from "./CartButtons";
 
-export default function ProductBlock() {
+export default function ProductBlock(props) {
   const dispatch = useDispatch();
   const product = useSelector(selectProducts);
+  const productsByNames = useSelector(selectProductsByNames);
+  const productsByTags = useSelector(selectProductsByTags);
+  const productsByPrices = useSelector(selectProductsByPrices);
+  const filteredProducts = useSelector(selectFilteredProducts(props.sort));
+
   const user = useSelector(selectUser);
+  let sorts = props.sort;
+  console.log(sorts);
 
   const categories = [
     { id: 1, name: "Electronics" },
@@ -23,7 +36,14 @@ export default function ProductBlock() {
 
   console.log("Buying array?:", user);
 
-  return product.map((pro) => {
+  const sortedProductArray = (s) => {
+    if (s === "names") return productsByNames;
+    if (s === "tags") return productsByTags;
+    if (s === "price") return productsByPrices;
+    else return filteredProducts;
+  };
+
+  return sortedProductArray(sorts).map((pro) => {
     return (
       <>
         <div className="productDisplay">
