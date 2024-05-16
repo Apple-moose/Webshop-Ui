@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  selectProducts,
+  // selectProducts,
   selectProductsByNames,
   selectProductsByTags,
   selectProductsByPrices,
@@ -12,10 +12,12 @@ import {
 import { selectUser } from "../store/user/selectors";
 import { productSeen } from "../store/user/slice";
 import { CartEmpty, CartFull } from "./CartButtons";
+import Categories from "./Categories";
+
 
 export default function ProductBlock(props) {
   const dispatch = useDispatch();
-  const product = useSelector(selectProducts);
+  // const product = useSelector(selectProducts);
   const productsByNames = useSelector(selectProductsByNames);
   const productsByTags = useSelector(selectProductsByTags);
   const productsByPrices = useSelector(selectProductsByPrices);
@@ -23,16 +25,6 @@ export default function ProductBlock(props) {
 
   const user = useSelector(selectUser);
   let sorts = props.sort;
-  console.log(sorts);
-
-  const categories = [
-    { id: 1, name: "Electronics" },
-    { id: 2, name: "Clothing" },
-    { id: 3, name: "Plants" },
-    { id: 4, name: "Books" },
-    { id: 7, name: "Games" },
-    { id: 8, name: "Sport" },
-  ];
 
   console.log("Buying array?:", user);
 
@@ -60,10 +52,6 @@ export default function ProductBlock(props) {
           <p>
             <b>{pro.name}</b>{" "}
             <span className="right">
-              tag:{" "}
-              {categories.map((cat) => {
-                if (cat.id === pro.categoryId) return cat.name;
-              })}{" "}
               👁️
               {user.map((pr) => {
                 if (pro.id === pr.id) {
@@ -71,6 +59,12 @@ export default function ProductBlock(props) {
                 }
               })}{" "}
             </span>
+            <p>
+              Category:{" "}
+              {Categories.map((cat) => {
+                if (cat.id === pro.categoryId) return cat.name;
+              })}{" "}
+            </p>
           </p>
           <span className="left">€{pro.price} </span>
           {user.map((u) => {

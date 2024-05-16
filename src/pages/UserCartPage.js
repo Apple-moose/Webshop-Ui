@@ -14,9 +14,14 @@ export default function UserCartPage() {
   const product = useSelector(selectProducts);
   const user = useSelector(selectUser);
   const total = useSelector(selectBank);
-  // console.log("newArray:", user);
 
-  if (total === 0) return <h1>Your Shopping Cart is Empty!</h1>;
+  if (total === 0)
+    return (
+      <>
+        <h1>Your Shopping Cart is Empty!</h1>
+        <p>⭐️Please click on the Moose to go back to the Home Page⭐️</p>
+      </>
+    );
   else
     return (
       <>

@@ -1,16 +1,9 @@
 import React, { useState, useEffect } from "react";
 import ProductBlock from "../components/ProductBlock";
+import Categories from "../components/Categories";
 
 export default function HomePage() {
   const [selectSorting, setSelectSorting] = useState("Names");
-  const categories = [
-    { id: 1, name: "Electronics" },
-    { id: 2, name: "Clothing" },
-    { id: 3, name: "Plants" },
-    { id: 4, name: "Books" },
-    { id: 7, name: "Games" },
-    { id: 8, name: "Sport" },
-  ];
 
   useEffect(() => {
     setSelectSorting(localStorage.sorting);
@@ -39,7 +32,7 @@ export default function HomePage() {
             localStorage.setItem("sorting", e.target.value);
           }}
         >
-          {categories.map((c) => (
+          {Categories.map((c) => (
             <option key={c.id} value={c.id}>
               {c.name}
             </option>

@@ -6,7 +6,7 @@ import ProductPage from "./pages/ProductPage";
 import UserCartPage from "./pages/UserCartPage";
 import Toolbar from "./components/Toolbar";
 import BuyPage from "./pages/BuyPage";
-// import LoginPage from "./pages/LoginPage";
+import LoginPage from "./pages/LoginPage";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchProducts } from "./store/products/actions";
@@ -14,7 +14,6 @@ import { bootstrapUser } from "./store/user/slice";
 
 // import { bootstrapLogInState } from "./store/auth/actions";
 // import { bootstrapNewLogInState } from "./store/signup/actions";
-// import UserPostPage from "./pages/UserPostPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,7 +33,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/:id" element={<ProductPage />} />
-        {/* <Route path="/login" element={<LoginPage />} /> */}
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/Cart" element={<UserCartPage />} />
         <Route path="/Buy" element={<BuyPage />} />
       </Routes>
