@@ -21,13 +21,13 @@ const signupSlice = createSlice({
     userLoggedIn: (state, action) => {
       state.loading = false;
       state.me = action.payload;
-      console.log(action.payload)
+      console.log("userLoggedIn slice payload:", action.payload)
     },
     newUserLogOut: (state) => {
       localStorage.removeItem("tokenNew");
       state.me = null;
       state.accessToken = null;
-      console.log(localStorage);
+    //   console.log(localStorage);
     },
   },
 });

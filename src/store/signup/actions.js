@@ -5,9 +5,9 @@ import { userLogOut } from "../auth/slice";
 const API_URL = `http://localhost:4000`;
 
 export function Signup(signEmail, signPassword, signName, navigate) {
-  return function thunk(dispatch, getState) {
+  return async function thunk(dispatch, getState) {
     dispatch(startLoading());
-    axios
+    await axios
       .post(API_URL + "/auth/signup", {
         email: signEmail,
         password: signPassword,
@@ -15,7 +15,7 @@ export function Signup(signEmail, signPassword, signName, navigate) {
       })
       .then((data) => {
         const token = data.data.token;
-        console.log("token received:", token);
+        console.log("at axios => token received:", token);
         dispatch(getToken(token));
         dispatch(userLogOut());
       })
@@ -23,9 +23,12 @@ export function Signup(signEmail, signPassword, signName, navigate) {
 
     const tokenReceived = getState().signup.accessToken;
     localStorage.setItem("tokenNew", tokenReceived);
-    console.log("tokenNew is: ", localStorage.tokenNew);
+    console.log(
+      "tokenNew at localStorage (after axios) is: ",
+      localStorage.tokenNew
+    );
 
-    axios
+    await axios
       .get(API_URL + "/auth/me", {
         headers: { Authorization: `Bearer ${tokenReceived} ` },
       })
@@ -45,8 +48,8 @@ export const bootstrapNewLogInState = () => async (dispatch) => {
 
   if (!tokenFromStorage) return;
 
-  axios
-    .get("https://coders-network-api.onrender.com/me", {
+  await axios
+    .get(API_URL + "/auth/me", {
       headers: { Authorization: `Bearer ${tokenFromStorage} ` },
     })
     .then((data) => {

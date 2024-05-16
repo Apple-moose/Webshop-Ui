@@ -5,11 +5,11 @@ import { newUserLogOut } from "../signup/slice";
 const API_URL = `http://localhost:4000`;
 
 export function Login(email, password, navigate) {
-  return function thunk(dispatch, getState) {
+  return async function thunk(dispatch, getState) {
     //default is tessa@techmongers.nl password:123
     dispatch(startLoading());
-    axios
-      .post(`${API_URL}/auth/login`, {
+    await axios
+      .post(API_URL + "/auth/login", {
         email: email,
         password: password,
       })
@@ -22,11 +22,10 @@ export function Login(email, password, navigate) {
       .catch((err) => console.log("Login Error", err));
 
     const tokenReceived = getState().auth.accessToken;
-    localStorage.setItem("tokenReceived:", tokenReceived);
-    console.log("localStorage tokenReceived is:", localStorage.tokenReceived);
-
+    localStorage.setItem("tokenReceived", tokenReceived);
+    console.log("from auth actions:", tokenReceived);
     axios
-      .get(`${API_URL}/auth/me`, {
+      .get(API_URL + "/auth/me", {
         headers: { Authorization: `Bearer ${tokenReceived} ` },
       })
       .then((data) => {
@@ -45,8 +44,8 @@ export const bootstrapLogInState = () => async (dispatch) => {
 
   if (!tokenFromStorage) return;
 
-  axios
-    .get(`${API_URL}/me`, {
+  await axios
+    .get(API_URL + "/auth/me", {
       headers: { Authorization: `Bearer ${tokenFromStorage} ` },
     })
     .then((data) => {

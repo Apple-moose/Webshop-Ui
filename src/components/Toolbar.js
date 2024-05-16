@@ -58,7 +58,6 @@ export default function Toolbar() {
         <>
           <span className="App-header">
             .Apple-Moose's
-            {/* {count === 0 ? ( */}
             <Link to={`./.`}>
               <img src={MooseIcon} alt="moose roadsign" className="logo"></img>
             </Link>

@@ -14,7 +14,6 @@ import { productSeen } from "../store/user/slice";
 import { CartEmpty, CartFull } from "./CartButtons";
 import Categories from "./Categories";
 
-
 export default function ProductBlock(props) {
   const dispatch = useDispatch();
   // const product = useSelector(selectProducts);
@@ -26,7 +25,7 @@ export default function ProductBlock(props) {
   const user = useSelector(selectUser);
   let sorts = props.sort;
 
-  console.log("Buying array?:", user);
+  // console.log("Buying array?:", user);
 
   const sortedProductArray = (s) => {
     if (s === "names") return productsByNames;

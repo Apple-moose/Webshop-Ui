@@ -23,7 +23,7 @@ const authSlice = createSlice({
       console.log("userLoggedIn payload:", action.payload);
     },
     userLogOut: (state) => {
-      localStorage.removeItem("token");
+      // localStorage.removeItem("token");
       state.me = null;
       state.accessToken = null;
       console.log(localStorage);

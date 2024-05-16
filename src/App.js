@@ -10,22 +10,20 @@ import LoginPage from "./pages/LoginPage";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchProducts } from "./store/products/actions";
-import { bootstrapUser } from "./store/user/slice";
-
-// import { bootstrapLogInState } from "./store/auth/actions";
-// import { bootstrapNewLogInState } from "./store/signup/actions";
+import { bootstrapLogInState } from "./store/auth/actions";
+import { bootstrapNewLogInState } from "./store/signup/actions";
+// import { bootstrapUser } from "./store/user/slice";
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchProducts);
+    dispatch(bootstrapLogInState());
+    dispatch(bootstrapNewLogInState());
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   dispatch(bootstrapLogInState());
-  //   dispatch(bootstrapNewLogInState());
-  // }, [dispatch]);
+  // console.log("app.js bootstrap check:", localStorage)
 
   return (
     <div>

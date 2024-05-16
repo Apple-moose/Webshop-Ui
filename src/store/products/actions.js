@@ -15,7 +15,7 @@ export const fetchProducts = async (dispatch) => {
     dispatch(bootstrapUser());
     dispatch(bootstrapBank());
     //_________________________________________________
-    console.log(products);
+    // console.log(products);
   } catch (e) {
     console.log(e.message);
   }
