@@ -24,6 +24,14 @@ export default function Toolbar() {
     (value, currentValue) => value + currentValue.buy,
     0
   );
+  console.log(localStorage);
+  const localStorageReset = () => {
+    localStorage.removeItem("sorting");
+    localStorage.removeItem("tokenReceived");
+    localStorage.removeItem("userBank");
+    localStorage.removeItem("userData");
+    console.log(localStorage);
+  };
 
   return (
     <>
@@ -82,10 +90,13 @@ export default function Toolbar() {
             <BsCart4 />
           </Link>
         )}
-        <p className="rightSmall">
+        <p className="cartToolbarSmall">
           {totalItemInCart} items, total €{totalCartAmount}
         </p>
       </span>
+      <button className="buttonLocal" onClick={localStorageReset}>
+        Erase Cookies
+      </button>
     </>
   );
 }

@@ -6,39 +6,39 @@
 
 [] Yes, and I added a sources.md file that includes more details on how I used it
 
-[] No
+[xx] No
 
 ### Which required features did you complete?
 
-[] Feature 1 - Product list page
+[x] Feature 1 - Product list page
 
-[] Feature 2 - Product details page
+[x] Feature 2 - Product details page
 
-[] Feature 4 - Add to cart
+[x] Feature 4 - Add to cart
 
-[] Feature 5 - Go to cart with X items
+[x] Feature 5 - Go to cart with X items
 
-[] Feature 7 - Cart page
+[x] Feature 7 - Cart page
 
-[] Feature 8 - Checkout products
+[x] Feature 8 - Checkout products
 
 ### Which bonus features did you complete?
 
-[] Feature 3 - Product list page filtering and sorting
+[x] Feature 3 - Product list page filtering and sorting
 
-[] Feature 6 - Cart details on products
+[x] Feature 6 - Cart details on products
 
-[] Feature 9 - Adjust items in cart
+[x] Feature 9 - Adjust items in cart
 
-[] Feature 10 - Saving state
+[x] Feature 10 - Saving state
 
-[] Feature 11 - Signup page
+[x] Feature 11 - Signup page
 
-[] Feature 12 - Login
+[x] Feature 12 - Login
 
-[] Feature 13 - Profile page
+[x] Feature 13 - Profile page
 
-[] Feature 14 - Stay logged in
+[x] Feature 14 - Stay logged in
 
 ### What score would you give yourself?
 

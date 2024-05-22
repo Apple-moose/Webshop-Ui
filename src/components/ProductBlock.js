@@ -25,7 +25,6 @@ export default function ProductBlock(props) {
   const user = useSelector(selectUser);
   let sorts = props.sort;
 
-  // console.log("Buying array?:", user);
 
   const sortedProductArray = (s) => {
     if (s === "names") return productsByNames;
@@ -33,6 +32,10 @@ export default function ProductBlock(props) {
     if (s === "price") return productsByPrices;
     else return filteredProducts;
   };
+
+//   const findUserData = (productId) => {
+// return user.find((u) => u.id === productId);
+//   };
 
   return sortedProductArray(sorts).map((pro) => {
     return (
@@ -51,12 +54,14 @@ export default function ProductBlock(props) {
           <p>
             <b>{pro.name}</b>{" "}
             <span className="right">
-              👁️
-              {user.map((pr) => {
+              👁️:
+              {/* {!findUserData(pro.id) ? (0) : (findUserData.seen)} */}
+              {/* {user.map((pr) => {
                 if (pro.id === pr.id) {
-                  return `:${pr.seen}`;
+                  return (pr.seen > 0) ? `:${pr.seen}`: ":0";
                 }
-              })}{" "}
+              })} */}
+              {" "}
             </span>
             <p>
               Category:{" "}

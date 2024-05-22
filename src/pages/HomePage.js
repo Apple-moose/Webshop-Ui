@@ -3,10 +3,12 @@ import ProductBlock from "../components/ProductBlock";
 import Categories from "../components/Categories";
 
 export default function HomePage() {
-  const [selectSorting, setSelectSorting] = useState("Names");
+  const [selectSorting, setSelectSorting] = useState("names");
 
   useEffect(() => {
-    setSelectSorting(localStorage.sorting);
+    !localStorage.sorting
+      ? setSelectSorting("names")
+      : setSelectSorting(localStorage.sorting);
   }, []);
 
   return (

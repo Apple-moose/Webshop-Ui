@@ -24,7 +24,9 @@ const bankSlice = createSlice({
       localStorage.setItem("userBank", JSON.stringify(state.amount));
     },
     bootstrapBank: (state) => {
-      state.amount = JSON.parse(localStorage.getItem("userBank"));
+      !localStorage.userBank
+        ? localStorage.setItem("userBank", JSON.stringify(state.amount))
+        : (state.amount = JSON.parse(localStorage.getItem("userBank")));
     },
   },
 });
