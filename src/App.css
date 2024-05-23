@@ -9,11 +9,11 @@
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
+/* @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
-}
+} */
 .productDisplay {
   padding: 1rem;
   float: left;
@@ -81,13 +81,13 @@
   margin-right: 3rem;
 }
 .buttonLocal {
-background: rgb(227, 177, 85);
-border: none;
-position: left !important;
-top: 2%;
-font-size: 1.2rem !important;
-font-weight: italic;
-margin-right: 3rem;
+  background: rgb(227, 177, 85);
+  border: none;
+  position: left !important;
+  top: 2%;
+  font-size: 1.2rem !important;
+  font-weight: italic;
+  margin-right: 3rem;
 }
 .productFullTxt {
   text-align: left;
@@ -125,7 +125,6 @@ margin-right: 3rem;
   font-size: 1rem !important;
 }
 .cartToolbarSmall {
-  /* position: absolute !important; */
   right: 10% !important;
   font-weight: normal !important;
   font-size: 1rem !important;
@@ -136,7 +135,6 @@ margin-right: 3rem;
   font-size: 2rem !important;
   font-weight: bold;
   align-items: right !important;
-  /* margin-right: 1rem; */
 }
 .rightBigToolBarCart {
   color: white;
@@ -163,21 +161,51 @@ margin-right: 3rem;
   background-color: #787b81;
   min-height: 1.5rem;
   display: flow-root;
-  /* margin-left: 1rem; */
   align-items: center;
   font-size: 2.5rem;
   color: white;
 }
+.Options-header {
+  margin-left: 1.5rem !important;
+  margin-right: 1.5rem !important;
+  background-color: #787b81;
+  font-size: 4rem;
+  color: white !important;
+  /* display: block; */
+}
 
+.Options-window {
+  background: rgb(227, 177, 85);
+  visibility: hidden;
+  left: 3.5rem;
+  line-height: 3rem;
+  position: absolute !important;
+  top: 3rem !important;
+  font-size: 3rem;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+.Options-header:hover .Options-window {
+  display: block;
+  visibility: visible;
+  left: 5rem;
+  height: 20rem;
+}
+.small {
+  font-size: 2rem;
+}
 .App-link {
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
+/* @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(360deg);
   }
-}
+} */

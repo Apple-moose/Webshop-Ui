@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { BsCart4 } from "react-icons/bs";
+import { BsCart4, BsFillGrid3X3GapFill } from "react-icons/bs";
 import MooseIcon from "./MooseIcon.png";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -35,11 +35,49 @@ export default function Toolbar() {
 
   return (
     <>
-      {!newUserName.me && !userName.me ? (
-        <>
-          <span className="App-header">
-            .Apple-Moose's
-            {count === 0 ? (
+      <div className="App-header">
+        <span className="Options-header">
+          <BsFillGrid3X3GapFill />
+          <div class="Options-window">
+            <p>&nbsp;LOGIN&nbsp;</p>
+            <p>&nbsp;CART&nbsp;</p>
+            <p className="small">&nbsp;Clear Cache&nbsp;</p>
+            </div>
+        </span>
+        {!newUserName.me && !userName.me ? (
+          <>
+            <span>
+              Apple-Moose's
+              {count === 0 ? (
+                <Link to={`./.`}>
+                  <img
+                    src={MooseIcon}
+                    alt="moose roadsign"
+                    className="logo"
+                  ></img>
+                </Link>
+              ) : (
+                <Link to={`./.`} onClick={(event) => event.preventDefault()}>
+                  <img
+                    src={MooseIcon}
+                    alt="moose roadsign"
+                    className="logo"
+                  ></img>
+                </Link>
+              )}
+              Webshop&nbsp;&nbsp;&nbsp;&nbsp;
+              <button
+                className="buttonLogin"
+                onClick={() => navigate("./login")}
+              >
+                Log in
+              </button>
+            </span>
+          </>
+        ) : (
+          <>
+            <span>
+              Apple-Moose's
               <Link to={`./.`}>
                 <img
                   src={MooseIcon}
@@ -47,56 +85,37 @@ export default function Toolbar() {
                   className="logo"
                 ></img>
               </Link>
-            ) : (
-              <Link to={`./.`} onClick={(event) => event.preventDefault()}>
-                <img
-                  src={MooseIcon}
-                  alt="moose roadsign"
-                  className="logo"
-                ></img>
-              </Link>
-            )}
-            Webshop&nbsp;&nbsp;&nbsp;&nbsp;
-            <button className="buttonLogin" onClick={() => navigate("./login")}>
-              Log in
-            </button>
-          </span>
-        </>
-      ) : (
-        <>
-          <span className="App-header">
-            .Apple-Moose's
-            <Link to={`./.`}>
-              <img src={MooseIcon} alt="moose roadsign" className="logo"></img>
-            </Link>
-            Welcome {newUserName.me} {userName.me}{" "}
-            <button
-              className="buttonLogin"
-              onClick={() => dispatch(userLogOut(), dispatch(newUserLogOut()))}
-            >
-              Log out!
-            </button>
-          </span>
-        </>
-      )}
-      <span className="rightBigToolBarCart">
-        go to&nbsp;
-        {count === 0 ? (
-          <Link to="./Cart">
-            <BsCart4 />
-          </Link>
-        ) : (
-          <Link to="./Cart" onClick={(event) => event.preventDefault()}>
-            <BsCart4 />
-          </Link>
+              Welcome {newUserName.me} {userName.me}{" "}
+              <button
+                className="buttonLogin"
+                onClick={() =>
+                  dispatch(userLogOut(), dispatch(newUserLogOut()))
+                }
+              >
+                Log out!
+              </button>
+            </span>
+          </>
         )}
-        <p className="cartToolbarSmall">
-          {totalItemInCart} items, total €{totalCartAmount}
-        </p>
-      </span>
-      <button className="buttonLocal" onClick={localStorageReset}>
-        Erase Cookies
-      </button>
+        <span className="rightBigToolBarCart">
+          go to&nbsp;
+          {count === 0 ? (
+            <Link to="./Cart">
+              <BsCart4 />
+            </Link>
+          ) : (
+            <Link to="./Cart" onClick={(event) => event.preventDefault()}>
+              <BsCart4 />
+            </Link>
+          )}
+          <p className="cartToolbarSmall">
+            {totalItemInCart} items, total €{totalCartAmount}
+          </p>
+        </span>
+        <button className="buttonLocal" onClick={localStorageReset}>
+          Erase Cookies
+        </button>
+      </div>
     </>
   );
 }
