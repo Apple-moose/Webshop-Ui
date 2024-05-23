@@ -55,8 +55,8 @@
 }
 .buttonBuy {
   position: absolute !important;
-  right: 15% !important;
-  bottom: 10%;
+  right: 3rem !important;
+  bottom: 6rem;
   font-size: 2rem !important;
   font-weight: bold;
   align-items: right !important;
@@ -64,27 +64,25 @@
 }
 .buttonReset {
   position: absolute !important;
-  right: 5% !important;
-  bottom: 10%;
+  right: 3rem !important;
+  bottom: 3rem;
   font-size: 2rem !important;
   font-weight: bold;
   align-items: right !important;
   margin-right: 3rem;
 }
 .buttonLogin {
-  background: rgb(227, 177, 85);
+  background: rgb(157, 214, 242);
   border: none;
-  position: absolute !important;
-  top: 2%;
-  font-size: 1.2rem !important;
-  font-weight: italic;
+  border-radius: 0.5rem;
+  font-size: 1.8rem !important;
+  font-weight: italic !important;
   margin-right: 3rem;
 }
 .buttonMenu {
   background: rgb(227, 177, 85);
   border: none;
   margin-left: 1rem;
-  /* position: absolute !important; */
   top: 2%;
   font-size: 2rem !important;
   color: white;
@@ -99,6 +97,10 @@
   font-size: 1.2rem !important;
   font-weight: italic;
   margin-right: 3rem;
+}
+.loginTxt {
+  margin-left: 1.5rem;
+  font-size: 1.5rem;
 }
 .productFullTxt {
   text-align: left;
@@ -143,6 +145,7 @@
 .rightBig {
   position: absolute !important;
   right: 1% !important;
+  margin-right: 2rem;
   font-size: 2rem !important;
   font-weight: bold;
   align-items: right !important;
@@ -164,10 +167,16 @@
 }
 .leftBig {
   float: left;
+  margin-left: 1rem;
   font-size: 1.5rem;
   font-weight: bold;
 }
-
+.leftTitle {
+  /* float: left; */
+  margin-left: 1.5rem;
+  font-size: 3rem;
+  font-weight: bold;
+}
 .App-header {
   background-color: #787b81;
   min-height: 1.5rem;
@@ -187,12 +196,13 @@
 
 .Options-window {
   background: rgb(227, 177, 85);
+  opacity: 0.9;
   visibility: hidden;
-  left: 3.5rem;
-  /* line-height: 2rem; */
+  left: 1.5rem;
+  border-radius: 1.5rem;
   position: absolute !important;
-  top: 2rem !important;
-  font-size: 1rem;
+  top: 1rem !important;
+  font-size: 0.8rem;
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
   -ms-transition: all 0.5s ease;
@@ -202,7 +212,7 @@
 .Options-header:hover .Options-window {
   display: block;
   visibility: visible;
-  left: 3rem;
+  left: 4rem;
   height: 10rem;
 }
 .small {

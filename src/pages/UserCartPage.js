@@ -18,14 +18,14 @@ export default function UserCartPage() {
   if (total === 0)
     return (
       <>
-        <h1>Your Shopping Cart is Empty!</h1>
-        <p>⭐️Please click on the Moose to go back to the Home Page⭐️</p>
+        <h1 className="leftTitle">Your Shopping Cart is Empty!</h1>
+        <p>&nbsp;&nbsp;&nbsp;⭐️Please click on the Moose to go back to the Home Page⭐️</p>
       </>
     );
   else
     return (
       <>
-        <h1>Your Shopping cart</h1>
+        <h1 className="leftTitle">Your Shopping cart</h1>
         <p>
           {user.map((u) => {
             if (u.buy > 0)
@@ -83,7 +83,7 @@ export default function UserCartPage() {
                   dispatch(reset());
                 }}
               >
-                reset
+                Reset
               </button>
             </p>
           </div>

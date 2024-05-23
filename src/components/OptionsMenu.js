@@ -16,11 +16,11 @@ function OptionsMenu() {
   return (
     <>
       <button className="buttonMenu" onClick={() => navigate("./login")}>
-        LOG IN
+        My Account
       </button>
       <p>
         <button className="buttonMenu" onClick={() => navigate("./Cart")}>
-          Go to Cart
+          My Purchases
         </button>
       </p>
       <p>
@@ -43,7 +43,7 @@ function OptionsMenuLogged() {
         className="buttonMenu"
         onClick={() => dispatch(userLogOut(), dispatch(newUserLogOut()))}
       >
-        LOG OUT
+        Log out
       </button>
       <p>
         <button className="buttonMenu" onClick={() => navigate("./Cart")}>

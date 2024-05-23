@@ -18,7 +18,7 @@ export default function LoginPage() {
 
   return (
     <>
-      <div>
+      <div className="loginTxt">
         <h1>Login</h1>
         <form onSubmit={handleSubmit}>
           <p>
@@ -42,7 +42,9 @@ export default function LoginPage() {
             </label>
           </p>
           <p>
-            <button type="submit">Login</button>
+            <button type="submit" className="buttonLogin">
+              Login
+            </button>
           </p>
         </form>
       </div>
