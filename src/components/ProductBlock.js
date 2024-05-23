@@ -25,7 +25,6 @@ export default function ProductBlock(props) {
   const user = useSelector(selectUser);
   let sorts = props.sort;
 
-
   const sortedProductArray = (s) => {
     if (s === "names") return productsByNames;
     if (s === "tags") return productsByTags;
@@ -33,9 +32,17 @@ export default function ProductBlock(props) {
     else return filteredProducts;
   };
 
-//   const findUserData = (productId) => {
-// return user.find((u) => u.id === productId);
-//   };
+  const findUserData = (productId) => {
+    return user.find((u) => u.id === productId);
+  };
+
+  const mapUserForSeen = (proId) => {
+    return user.map((u) => {
+      if (u.id === proId) return (
+      !u.seen ? 0 : u.seen)
+    });
+  };
+
 
   return sortedProductArray(sorts).map((pro) => {
     return (
@@ -55,13 +62,7 @@ export default function ProductBlock(props) {
             <b>{pro.name}</b>{" "}
             <span className="right">
               👁️:
-              {/* {!findUserData(pro.id) ? (0) : (findUserData.seen)} */}
-              {/* {user.map((pr) => {
-                if (pro.id === pr.id) {
-                  return (pr.seen > 0) ? `:${pr.seen}`: ":0";
-                }
-              })} */}
-              {" "}
+              {!findUserData(pro.id) ? 0 : mapUserForSeen(pro.id)}
             </span>
             <p>
               Category:{" "}
@@ -71,14 +72,23 @@ export default function ProductBlock(props) {
             </p>
           </p>
           <span className="left">€{pro.price} </span>
-          {user.map((u) => {
-            if (u.id === pro.id)
-              return u.buy > 0 ? (
-                <CartFull key={u.id} id={u.id} buy={u.buy} price={pro.price} />
-              ) : (
-                <CartEmpty key={u.id} id={u.id} price={pro.price} />
-              );
-          })}
+          {!findUserData(pro.id) ? (
+            <CartEmpty key={pro.id} id={pro.id} price={pro.price} />
+          ) : (
+            user.map((u) => {
+              if (u.id === pro.id)
+                return u.buy > 0 ? (
+                  <CartFull
+                    key={u.id}
+                    id={u.id}
+                    buy={u.buy}
+                    price={pro.price}
+                  />
+                ) : (
+                  <CartEmpty key={u.id} id={u.id} price={pro.price} />
+                );
+            })
+          )}
         </div>
       </>
     );

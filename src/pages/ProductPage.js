@@ -39,8 +39,8 @@ export default function ProductPage() {
                   if (cat.id === product.categoryId) return cat.name;
                 })}{" "}
                 👁️:
-                {user.map((pr) => {
-                  if (product.id === pr.id) return pr.seen;
+                {user.map((u) => {
+                  if (product.id === u.id) return !u.seen ? 0 : u.seen;
                 })}
               </p>
               <p className="productDescTxt">{product.description}</p>
