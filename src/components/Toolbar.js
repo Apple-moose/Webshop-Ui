@@ -6,13 +6,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectBank } from "../store/bank/selectors";
 import { selectUser } from "../store/user/selectors";
 import { selectAuth } from "../store/auth/selectors";
-import { userLogOut } from "../store/auth/slice";
-import { newUserLogOut } from "../store/signup/slice";
+// import { userLogOut } from "../store/auth/slice";
+// import { newUserLogOut } from "../store/signup/slice";
 import { selectSignup } from "../store/signup/selectors";
+import { OptionsMenu, OptionsMenuLogged } from "./OptionsMenu";
 
 export default function Toolbar() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const dispatch = useDispatch();
+  // const navigate = useNavigate();
   const userName = useSelector(selectAuth);
   const newUserName = useSelector(selectSignup);
 
@@ -24,28 +25,18 @@ export default function Toolbar() {
     (value, currentValue) => value + currentValue.buy,
     0
   );
-  console.log(localStorage);
-  const localStorageReset = () => {
-    localStorage.removeItem("sorting");
-    localStorage.removeItem("tokenReceived");
-    localStorage.removeItem("userBank");
-    localStorage.removeItem("userData");
-    console.log(localStorage);
-  };
 
   return (
     <>
       <div className="App-header">
-        <span className="Options-header">
-          <BsFillGrid3X3GapFill />
-          <div class="Options-window">
-            <p>&nbsp;LOGIN&nbsp;</p>
-            <p>&nbsp;CART&nbsp;</p>
-            <p className="small">&nbsp;Clear Cache&nbsp;</p>
-            </div>
-        </span>
         {!newUserName.me && !userName.me ? (
           <>
+            <span className="Options-header">
+              <BsFillGrid3X3GapFill />
+              <div class="Options-window">
+                <OptionsMenu />
+              </div>
+            </span>
             <span>
               Apple-Moose's
               {count === 0 ? (
@@ -66,16 +57,16 @@ export default function Toolbar() {
                 </Link>
               )}
               Webshop&nbsp;&nbsp;&nbsp;&nbsp;
-              <button
-                className="buttonLogin"
-                onClick={() => navigate("./login")}
-              >
-                Log in
-              </button>
             </span>
           </>
         ) : (
           <>
+            <span className="Options-header">
+              <BsFillGrid3X3GapFill />
+              <div class="Options-window">
+                <OptionsMenuLogged />
+              </div>
+            </span>
             <span>
               Apple-Moose's
               <Link to={`./.`}>
@@ -86,14 +77,6 @@ export default function Toolbar() {
                 ></img>
               </Link>
               Welcome {newUserName.me} {userName.me}{" "}
-              <button
-                className="buttonLogin"
-                onClick={() =>
-                  dispatch(userLogOut(), dispatch(newUserLogOut()))
-                }
-              >
-                Log out!
-              </button>
             </span>
           </>
         )}
@@ -112,9 +95,6 @@ export default function Toolbar() {
             {totalItemInCart} items, total €{totalCartAmount}
           </p>
         </span>
-        <button className="buttonLocal" onClick={localStorageReset}>
-          Erase Cookies
-        </button>
       </div>
     </>
   );
