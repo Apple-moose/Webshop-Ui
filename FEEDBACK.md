@@ -52,8 +52,39 @@
 
 Take some time to think about your process during this assessment: What worked? What could you have done better? What should you keep doing?
 
-// ANSWER HERE
+No problems setting up pages and general structures. The need for seperating concerns is very apparent to me.
+Wasted a lot (A LOT!) of time trying to generate what I call 'quadruple functions': if-then inside an if-then inside a .map or find...
+But, was very instructive and boosted my confidence as a problem solver.
+Also, I spent time going under the hood of the server (backend): as to decide if it was an idea to record user-data out there. (Was not more functionnal, and I understood that this was not the goal of the assessment). Although, I think that in an official website, the usage data should be firewalled in the backend.
+
+So, for this assessment, in 8 hours time, I would have been only able to set up the product pages and some links. The user data would have been hardcoded [{id: (id), seen: 0, buy:0}...]for every product id as to make 'add-to-cart' and 'seen' functions (.map) easier to write at the beginning.
+
+To compensate for my lack of speed, I decided not to stop until everything worked perfectly and added some challenges and functionalities myself.
+
+Used my previous works from Kyna and also "Stack Overflow" to resolve my problems. No Ai or coder-friend!
+
+Now, I can say: I get it, bring it on!
 
 ### Any other feedback?
 
--Usage of .map in the 'html' part of the pages is always provoking the "Array.prototype.map() expects a value to be returned at the end of arrow function" eslint error. After research, haven't found a solution yet.
+General Ideas and structure pointers:
+
+The usage of the portal will be recorded in two seperate user-files and on local storage:
+1- User UserArray: classifying what have been seen (.seen) or send to cart (.buy) by product id.
+2- Bank Amount: seperating concerns of money for future transactionnal possibilities.
+
+Fully functionnal logging for returning or new users in 'Auth'and 'Signup'. Have their own page for future .css work.
+
+General ('HomePage') and Detail pages ('ProductPage') for every product available in the backend server at any time.
+
+HomePage fully functional filters and filter-reset. The filters have been coded in the 'store/products/selectors.js' page to correspond with previous KYNA works. It returns a yellow "warning" in the console and I would preferably re-write the filters in the HomePage.js file.
+
+"My purchases" page ('UserCartPage') is a resume of all chosen products with possibility of modifications.
+
+Seperated component pages for rapid modification:
+for "send to cart" icons ('CartButtons'), for "info display" on homepage ('ProducBlock'), for popup Menu with login and cart links ('OptionsMenu').
+n.b: also a 'clear cache' option to clean localStorage data (came first as a debug function)
+
+Correspondance between "category Id" and intented name found in backend data is harcoded in Categories.js
+
+My excuses for the lack off .css work. My problem is: if I begin there's no end in sight and also, not sure that I am as passionate with visual works. I would prefer to leave it for more visualy talented collegues!

@@ -1,19 +1,15 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { BsCart4, BsFillGrid3X3GapFill } from "react-icons/bs";
 import MooseIcon from "./MooseIcon.png";
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectBank } from "../store/bank/selectors";
 import { selectUser } from "../store/user/selectors";
 import { selectAuth } from "../store/auth/selectors";
-// import { userLogOut } from "../store/auth/slice";
-// import { newUserLogOut } from "../store/signup/slice";
 import { selectSignup } from "../store/signup/selectors";
 import { OptionsMenu, OptionsMenuLogged } from "./OptionsMenu";
 
 export default function Toolbar() {
-  // const dispatch = useDispatch();
-  // const navigate = useNavigate();
   const userName = useSelector(selectAuth);
   const newUserName = useSelector(selectSignup);
 
