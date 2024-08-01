@@ -4,19 +4,24 @@ import { useEffect } from "react";
 import { fetchFullProduct } from "../store/productFullPage/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { selectFullProduct } from "../store/productFullPage/selectors";
+import { selectReviews } from "../store/reviews/selectors";
 import { selectUser } from "../store/user/selectors";
 import { CartEmpty, CartFull } from "../components/CartButtons";
 import Categories from "../components/Categories";
+import { fetchReviewsByProdId } from "../store/reviews/actions";
 
 export default function ProductPage() {
   const { id } = useParams();
+  // const { prodId } = useParams();
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchFullProduct(id));
+    dispatch(fetchReviewsByProdId(id));
   }, [dispatch, id]);
 
   const product = useSelector(selectFullProduct);
+  const reviews = useSelector(selectReviews);
   const user = useSelector(selectUser);
 
   return (
@@ -50,7 +55,7 @@ export default function ProductPage() {
               {user.map((u) => {
                 if (u.id === product.id)
                   return u.buy > 0 ? (
-                    <CartFull 
+                    <CartFull
                       key={u.id}
                       id={u.id}
                       buy={u.buy}
@@ -61,6 +66,13 @@ export default function ProductPage() {
                   );
               })}
             </span>
+            <div>
+              <p className="productDescTxt">
+                {reviews.map((r) => {
+                  if (r.productId === product.id) return <p>{r.content}</p>;
+                })}
+              </p>
+            </div>
           </>
         )}
       </div>
