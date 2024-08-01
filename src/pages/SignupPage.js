@@ -6,14 +6,17 @@ import { Signup } from "../store/signup/actions";
 export default function SignupPage() {
   const [signEmail, setSignEmail] = useState("");
   const [signPassword, setSignPassword] = useState("");
-  const [signName, setSignName] = useState("");
+  const [signFirstName, setSignFirstName] = useState("");
+  const [signLastName, setSignLastName] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   function handleNewUser(event) {
     event.preventDefault();
-    dispatch(Signup(signEmail, signPassword, signName, navigate));
+    dispatch(Signup(signFirstName, signLastName, signEmail, 
+    signPassword, imageUrl, navigate));
   }
 
   return (
@@ -23,11 +26,21 @@ export default function SignupPage() {
         <form onSubmit={handleNewUser}>
           <p>
             <label>
-              Name:{" "}
+              First Name:{" "}
               <input
-                type="name"
-                value={signName}
-                onChange={(e) => setSignName(e.target.value)}
+                type="first name"
+                value={signFirstName}
+                onChange={(e) => setSignFirstName(e.target.value)}
+              />
+            </label>
+          </p>
+          <p>
+            <label>
+              Last Name:{" "}
+              <input
+                type="last name"
+                value={signLastName}
+                onChange={(e) => setSignLastName(e.target.value)}
               />
             </label>
           </p>
@@ -48,6 +61,16 @@ export default function SignupPage() {
                 type="password"
                 value={signPassword}
                 onChange={(e) => setSignPassword(e.target.value)}
+              />
+            </label>
+          </p>
+          <p>
+            <label>
+              Image Url:{" "}
+              <input
+                type="url"
+                value={imageUrl}
+                onChange={(e) => setImageUrl(e.target.value)}
               />
             </label>
           </p>

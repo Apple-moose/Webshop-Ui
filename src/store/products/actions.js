@@ -3,7 +3,7 @@ import { startLoading, productsFetched } from "./slice";
 import { bootstrapUser } from "../user/slice";
 import { bootstrapBank } from "../bank/slice";
 
-const API_URL = `http://localhost:4000`;
+const API_URL = `http://localhost:8000`;
 
 export const fetchProducts = async (dispatch) => {
   try {
@@ -14,8 +14,6 @@ export const fetchProducts = async (dispatch) => {
     //localStorage functions___________________________
     dispatch(bootstrapUser());
     dispatch(bootstrapBank());
-    //_________________________________________________
-    // console.log(products);
   } catch (e) {
     console.log(e.message);
   }

@@ -5,6 +5,7 @@ import userReducer from "./user/slice";
 import bankReducer from "./bank/slice";
 import authReducer from "./auth/slice";
 import signupReducer from "./signup/slice";
+import reviewsReducer from "./reviews/slice";
 
 const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
     bank: bankReducer,
     auth: authReducer,
     signup: signupReducer,
+    reviews: reviewsReducer,
   },
 });
 

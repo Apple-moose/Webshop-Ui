@@ -1,7 +1,7 @@
 import axios from "axios";
 import { startLoading, productFullFetched } from "./slice";
 
-const API_URL = `http://localhost:4000`;
+const API_URL = `http://localhost:8000`;
 
 
 export const fetchFullProduct = (id) => async (dispatch) => {

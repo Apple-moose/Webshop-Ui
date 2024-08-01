@@ -11,7 +11,6 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchProducts } from "./store/products/actions";
 import { bootstrapLogInState } from "./store/auth/actions";
-import { bootstrapNewLogInState } from "./store/signup/actions";
 // import { bootstrapUser } from "./store/user/slice";
 
 function App() {
@@ -20,10 +19,7 @@ function App() {
   useEffect(() => {
     dispatch(fetchProducts);
     dispatch(bootstrapLogInState());
-    dispatch(bootstrapNewLogInState());
   }, [dispatch]);
-
-  // console.log("app.js bootstrap check:", localStorage)
 
   return (
     <div>

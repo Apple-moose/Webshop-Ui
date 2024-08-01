@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  // selectProducts,
   selectProductsByNames,
   selectProductsByTags,
   selectProductsByPrices,

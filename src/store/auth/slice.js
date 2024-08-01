@@ -20,13 +20,11 @@ const authSlice = createSlice({
     userLoggedIn: (state, action) => {
       state.loading = false;
       state.me = action.payload;
-      console.log("userLoggedIn payload:", action.payload);
     },
     userLogOut: (state) => {
       localStorage.removeItem("tokenReceived");
       state.me = null;
       state.accessToken = null;
-      console.log(localStorage);
     },
   },
 });
