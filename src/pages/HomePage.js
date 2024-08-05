@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import ProductBlock from "../components/ProductBlock";
 import Categories from "../components/Categories";
+// import "./App.css";
+import "../style/global.scss";
+
 
 export default function HomePage() {
   const [selectSorting, setSelectSorting] = useState("names");

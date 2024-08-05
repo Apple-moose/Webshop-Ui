@@ -13,3 +13,15 @@ export const fetchReviewsByProdId = (prodId) => async (dispatch) => {
     console.log(e.message);
   }
 };
+
+export const fetchMyReviews = async (dispatch) => {
+  try {
+    dispatch(startLoading());
+    const response = await axios.get(`${API_URL}/reviews/me`);
+    const reviews = response.data;
+    console.log(reviews);
+    dispatch(reviewsFetched(reviews));
+  } catch (e) {
+    console.log(e.message);
+  }
+};

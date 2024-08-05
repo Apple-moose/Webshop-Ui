@@ -1,0 +1,61 @@
+@import "./config";
+@import "~bootstrap";
+
+.leftright {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 0px;
+    text-align: justify;
+    font-size: 1.2rem;
+}
+
+.exp {
+    position: relative;
+    bottom: 0.5ex; 
+    font-size: 75%;
+}
+
+.button {
+    background: transparent;
+    position: relative;
+    bottom: 0.3rem;
+    border: none;
+}
+.button2 {
+    background: transparent;
+    position: relative;
+    bottom: 0.3rem;
+    border: none;
+}
+
+.mooseClick {
+    margin-left: 6.5rem;
+    font-size: 1.25rem;
+}
+
+.buttonBuy {
+    // position: absolute !important;
+    // right: 3rem !important;
+    // bottom: 7rem;
+    font-size: 2rem !important;
+    font-weight: bold;
+    // align-items: right;
+    // float:  right !important;
+    margin-top: 3rem;
+    border: none;
+
+  }
+.buttonReset {
+    // position: absolute !important;
+    // top: 10rem;
+    // right: 3rem !important;
+    // bottom: 3rem;
+    font-size: 2rem !important;
+    font-weight: bold;
+    // float: right;
+    // align-items: right !important;
+    margin-top: 1rem;
+    border: none;
+
+  }
+

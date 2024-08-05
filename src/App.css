@@ -53,7 +53,7 @@
   border: none;
   font-size: 1rem;
 }
-.buttonBuy {
+/* .buttonBuy {
   position: absolute !important;
   right: 3rem !important;
   bottom: 6rem;
@@ -70,7 +70,7 @@
   font-weight: bold;
   align-items: right !important;
   margin-right: 3rem;
-}
+} */
 .buttonLogin {
   background: rgb(157, 214, 242);
   border: none;
@@ -128,7 +128,7 @@
   margin: auto;
 }
 .right {
-  margin-right: 1rem;
+  margin-right: 0rem;
   float: right;
 }
 .rightSmall {

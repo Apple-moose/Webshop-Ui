@@ -1,5 +1,7 @@
 import React from "react";
-import "./App.css";
+// import "./App.css";
+import "./style/global.scss";
+
 import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import ProductPage from "./pages/ProductPage";
