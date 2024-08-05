@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../style/global.scss";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Signup } from "../store/signup/actions";
@@ -15,13 +16,21 @@ export default function SignupPage() {
 
   function handleNewUser(event) {
     event.preventDefault();
-    dispatch(Signup(signFirstName, signLastName, signEmail, 
-    signPassword, imageUrl, navigate));
+    dispatch(
+      Signup(
+        signFirstName,
+        signLastName,
+        signEmail,
+        signPassword,
+        imageUrl,
+        navigate
+      )
+    );
   }
 
   return (
     <>
-      <div className="loginTxt">
+      <div>
         <h1>... or Signup?</h1>
         <form onSubmit={handleNewUser}>
           <p>
@@ -75,7 +84,11 @@ export default function SignupPage() {
             </label>
           </p>
           <p>
-            <button type="submit" className="buttonLogin">
+            <button
+              type="submit"
+              className="buttonLogin"
+              style={{ marginRight: "0rem" }}
+            >
               Signup
             </button>
           </p>

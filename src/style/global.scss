@@ -34,28 +34,26 @@
 }
 
 .buttonBuy {
-    // position: absolute !important;
-    // right: 3rem !important;
-    // bottom: 7rem;
     font-size: 2rem !important;
     font-weight: bold;
-    // align-items: right;
-    // float:  right !important;
     margin-top: 3rem;
     border: none;
 
   }
 .buttonReset {
-    // position: absolute !important;
-    // top: 10rem;
-    // right: 3rem !important;
-    // bottom: 3rem;
     font-size: 2rem !important;
     font-weight: bold;
-    // float: right;
-    // align-items: right !important;
     margin-top: 1rem;
     border: none;
 
   }
 
+  .buttonLogin {
+    background: rgb(157, 214, 242);
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1.8rem !important;
+    font-weight: italic !important;
+  }
+
+  

@@ -1,4 +1,3 @@
-// import "../App.css";
 import "../style/global.scss";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
@@ -33,7 +32,9 @@ export default function ProductPage() {
           <p>Loading...</p>
         ) : (
           <>
-            <div class="mooseClick">⭐️Please click on the Moose to go back to the Home Page⭐️</div>
+            <div class="mooseClick">
+              ⭐️Please click on the Moose to go back to the Home Page⭐️
+            </div>
             <main class="container">
               <div class="row">
                 <div class="col-6">
