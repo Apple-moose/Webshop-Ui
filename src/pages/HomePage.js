@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import ProductBlock from "../components/ProductBlock";
 import Categories from "../components/Categories";
-// import "./App.css";
+import { Container, Row, Col } from "react-bootstrap";
 import "../style/global.scss";
-
 
 export default function HomePage() {
   const [selectSorting, setSelectSorting] = useState("names");
@@ -53,7 +52,11 @@ export default function HomePage() {
           Reset Filters
         </button>
       </h3>
-      <ProductBlock sort={selectSorting} />
+      <Container>
+        <Row>
+          <ProductBlock sort={selectSorting} />
+        </Row>
+      </Container>
     </>
   );
 }

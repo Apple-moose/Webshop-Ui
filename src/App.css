@@ -71,15 +71,15 @@
   align-items: right !important;
   margin-right: 3rem;
 } */
-.buttonLogin {
+/* .buttonLogin {
   background: rgb(157, 214, 242);
   border: none;
   border-radius: 0.5rem;
   font-size: 1.8rem !important;
   font-weight: italic !important;
   margin-right: 3rem;
-}
-.buttonMenu {
+} */
+/* .buttonMenu {
   background: rgb(227, 177, 85);
   border: none;
   margin-left: 1rem;
@@ -88,7 +88,7 @@
   color: white;
   font-weight: italic;
   margin-right: 3rem;
-}
+} */
 .buttonLocal {
   background: rgb(227, 177, 85);
   border: none;
@@ -185,16 +185,16 @@
   font-size: 2.5rem;
   color: white;
 }
-.Options-header {
+/* .Options-header {
   margin-left: 1.5rem !important;
   margin-right: 1.5rem !important;
   background-color: #787b81;
   font-size: 4rem;
   color: white !important;
-  /* display: block; */
-}
+  display: block;
+} */
 
-.Options-window {
+/* .Options-window {
   background: rgb(227, 177, 85);
   opacity: 0.9;
   visibility: hidden;
@@ -219,8 +219,8 @@
   font-size: 2rem;
 }
 .App-link {
-  color: #61dafb;
-}
+  color: #61dafb; */
+/* } */
 
 /* @keyframes App-logo-spin {
   from {

@@ -6,7 +6,7 @@
     justify-content: space-between;
     margin-right: 0px;
     text-align: justify;
-    font-size: 1.2rem;
+    // font-size: 1.2rem;
 }
 
 .exp {
@@ -56,4 +56,50 @@
     font-weight: italic !important;
   }
 
-  
+  .buttonMenu {
+    // background: rgb(227, 177, 85);
+    // border: none;
+    // margin-left: 1rem;
+    // top: 2%;
+    // font-size: 2rem !important;
+    // color: white;
+    // font-weight: italic;
+    // margin-right: 3rem;
+  }
+
+  .Options-header {
+    // margin-left: 1.5rem !important;
+    // margin-right: 1.5rem !important;
+    // background-color: #787b81;
+    // font-size: 4rem;
+    // color: white !important;
+    /* display: block; */
+  }
+
+  .Options-window {
+    // background: rgb(227, 177, 85);
+    opacity: 0.9;
+    visibility: hidden;
+    left: 1.5rem;
+    border-radius: 1.5rem;
+    position: absolute !important;
+    top: 1rem !important;
+    font-size: 0.8rem;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+  }
+  .Options-header:hover .Options-window {
+    display: block;
+    visibility: visible;
+    left: 4rem;
+    height: 10rem;
+  }
+  .small {
+    font-size: 2rem;
+  }
+  .App-link {
+    color: #61dafb;
+  }
