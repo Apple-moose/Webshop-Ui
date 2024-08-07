@@ -8,6 +8,7 @@ import { CartIncrements } from "../components/CartButtons";
 import { resetCartData } from "../store/user/slice";
 import { reset } from "../store/bank/slice";
 import { Text } from "react-native-web";
+import { Button, Stack, Col, Row } from "react-bootstrap";
 
 export default function UserCartPage() {
   const dispatch = useDispatch();
@@ -15,6 +16,9 @@ export default function UserCartPage() {
   const product = useSelector(selectProducts);
   const user = useSelector(selectUser);
   const total = useSelector(selectBank);
+  const btn = {
+    fontSize: "2rem",
+  };
 
   if (total === 0)
     return (
@@ -102,55 +106,46 @@ export default function UserCartPage() {
           </div>
         </main>
         <main class="container-fluid">
-          <div class="row justify-content-end">
-            <div class="col-6 align-self-end">
-              <Text
-                style={{
-                  fontSize: 35,
-                  fontWeight: "bold",
-                  marginRight: "2rem",
-                  top: "1rem",
-                  float: "right",
-                }}
-              >
-                Total Amount: <span class="exp">€</span>
-                {total}
-              </Text>
-            </div>
-          </div>{" "}
-          <div class="row justify-content-end">
-            <div
-              class="col-2 align-self-end"
-              style={{ textAlign: "end", marginRight: "2rem" }}
-            >
-              <button
-                class="buttonBuy"
-                onClick={() => {
-                  dispatch(resetCartData());
-                  dispatch(reset());
-                  navigate("/Buy");
-                }}
-              >
-                Buy
-              </button>
-            </div>
-          </div>
-          <div class="row justify-content-end">
-            <div
-              class="col-2 align-self-end"
-              style={{ textAlign: "end", marginRight: "2rem" }}
-            >
-              <button
-                class="buttonReset"
-                onClick={() => {
-                  dispatch(resetCartData());
-                  dispatch(reset());
-                }}
-              >
-                Reset
-              </button>
-            </div>
-          </div>
+          <Row className="justify-content-end">
+            <Col md="3">
+              <Stack gap={4}>
+                <Text
+                  style={{
+                    fontSize: "2rem",
+                    fontWeight: "bold",
+                    marginRight: "0rem",
+                    marginBottom: "2rem",
+                    top: "1rem",
+                    float: "right",
+                  }}
+                >
+                  Total Amount: <span class="exp">€</span>
+                  {total}
+                </Text>
+                <Button
+                  variant="secondary"
+                  style={btn}
+                  onClick={() => {
+                    dispatch(resetCartData());
+                    dispatch(reset());
+                    navigate("/Buy");
+                  }}
+                >
+                  Buy
+                </Button>
+                <Button
+                  variant="outline-secondary"
+                  style={btn}
+                  onClick={() => {
+                    dispatch(resetCartData());
+                    dispatch(reset());
+                  }}
+                >
+                  Reset
+                </Button>
+              </Stack>
+            </Col>
+          </Row>
         </main>
       </>
     );

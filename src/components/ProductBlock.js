@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  selectProducts,
   selectProductsByNames,
   selectProductsByTags,
   selectProductsByPrices,
@@ -26,7 +27,7 @@ import {
 
 export default function ProductBlock(props) {
   const dispatch = useDispatch();
-  // const product = useSelector(selectProducts);
+  const product = useSelector(selectProducts);
   const productsByNames = useSelector(selectProductsByNames);
   const productsByTags = useSelector(selectProductsByTags);
   const productsByPrices = useSelector(selectProductsByPrices);
@@ -36,9 +37,11 @@ export default function ProductBlock(props) {
   let sorts = props.sort;
 
   const sortedProductArray = (s) => {
+    if (s === "id") return product
     if (s === "names") return productsByNames;
     if (s === "tags") return productsByTags;
     if (s === "price") return productsByPrices;
+  
     else return filteredProducts;
   };
 
@@ -54,17 +57,26 @@ export default function ProductBlock(props) {
 
   return sortedProductArray(sorts).map((pro) => {
     return (
-      <Col xs={4} className="mb-5">
-        <Card className="h-100 w-100 shadow-sm bg-white rounded">
+      <Col xs={4} className="mb-4">
+        <Card className="h-100 w-100 shadow-lg border-0 bg-white rounded">
           <CardHeader className="h5">
             <span class="leftright">
-              <b>{pro.name}</b> 👁️:
-              {!findUserData(pro.id) ? 0 : mapUserForSeen(pro.id)}
+              <b>{pro.name}</b>
+              <Badge
+                pill
+                className="mb-0 font-weight-bold size-large text-light bg-primary"
+              >
+                👁️:
+                {!findUserData(pro.id) ? 0 : mapUserForSeen(pro.id)}
+              </Badge>
             </span>
           </CardHeader>
-          <Link to={`./${pro.id}`}>
+          <Link
+            to={`./${pro.id}`}
+            onClick={() => dispatch(productSeen(pro.id))}
+          >
             <Card.Img
-              variant="bottom"
+              variant="top"
               src={pro.imageUrl}
               height="400hv"
               width="100%"
@@ -73,7 +85,7 @@ export default function ProductBlock(props) {
               key={pro.id}
             />
           </Link>
-          <CardBody className="card-footer h6">
+          <CardBody className="card-footer h5">
             <p>
               Category:{" "}
               {Categories.map((cat) => {
@@ -81,7 +93,14 @@ export default function ProductBlock(props) {
               })}{" "}
             </p>
             <span className="leftright">
-              €{pro.price}
+              <b>
+                <Badge
+                  pill
+                  className="mb-0 font-weight-bold d-inline-flex align-items-center text-dark bg-warning"
+                >
+                  €{pro.price}
+                </Badge>
+              </b>
               {!findUserData(pro.id) ? (
                 <CartEmpty key={pro.id} id={pro.id} price={pro.price} />
               ) : (
@@ -101,7 +120,6 @@ export default function ProductBlock(props) {
               )}{" "}
             </span>
           </CardBody>
-          {/* </div> */}
         </Card>
       </Col>
     );

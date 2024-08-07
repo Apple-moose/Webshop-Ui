@@ -4,22 +4,24 @@ import { useDispatch } from "react-redux";
 import { addToCart, reduceCart } from "../store/user/slice";
 import { addAmount, reduceAmount } from "../store/bank/slice";
 import { Text } from "react-native-web";
+import { Badge } from "react-bootstrap";
 
 const CartEmpty = (props) => {
   const dispatch = useDispatch();
 
   return (
     <>
-      <div>
+      <Badge pill className="mb-0 pill-large bg-secondary">
         <Text
           style={{
-            float: "right",
-            fontSize: 18,
+            fontWeight: "bold",
+            fontSize: 16,
+            color: "white",
           }}
         >
           Add to Cart
           <button
-            className="button2"
+            className="buttonWhite"
             onClick={() => {
               dispatch(addToCart(props.id));
               dispatch(addAmount(props.price));
@@ -28,7 +30,7 @@ const CartEmpty = (props) => {
             <BsCartPlus size={20} />
           </button>
         </Text>
-      </div>
+      </Badge>
     </>
   );
 };
@@ -38,15 +40,19 @@ const CartFull = (props) => {
   const dispatch = useDispatch();
   return (
     <>
-      <span>
+      <Badge
+        pill
+        className="mb-0 pill-large bg-secondary"
+      >
         <Text
           style={{
-            float: "right",
-            fontSize: 18,
+            fontWeight: "bold",
+            fontSize: 16,
+            color: "white",
           }}
         >
           <button
-            className="button2"
+            className="buttonWhite"
             onClick={() => {
               dispatch(reduceCart(props.id));
               dispatch(reduceAmount(props.price));
@@ -56,7 +62,7 @@ const CartFull = (props) => {
           </button>
           {props.buy} in Cart
           <button
-            className="button2"
+            className="buttonWhite"
             onClick={() => {
               dispatch(addToCart(props.id));
               dispatch(addAmount(props.price));
@@ -65,7 +71,7 @@ const CartFull = (props) => {
             <BsCartPlus size={20} />
           </button>
         </Text>
-      </span>
+      </Badge>
     </>
   );
 };

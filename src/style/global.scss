@@ -1,18 +1,28 @@
 @import "./config";
 @import "~bootstrap";
 
+.logo {
+  height: 5rem;
+}
 .leftright {
     display: flex;
     justify-content: space-between;
     margin-right: 0px;
-    text-align: justify;
-    // font-size: 1.2rem;
 }
 
 .exp {
     position: relative;
     bottom: 0.5ex; 
     font-size: 75%;
+}
+
+.App-header {
+  background-color: #787b81;
+  min-height: 1.5rem;
+  display: flow-root;
+  align-items: center;
+  font-size: 2.5rem;
+  color: white;
 }
 
 .button {
@@ -26,6 +36,13 @@
     position: relative;
     bottom: 0.3rem;
     border: none;
+}
+.buttonWhite {
+  background: transparent;
+  color: white;
+  position: relative;
+  bottom: 0.3rem;
+  border: none;
 }
 
 .mooseClick {
