@@ -15,15 +15,14 @@ import { productSeen } from "../store/user/slice";
 import { CartEmpty, CartFull } from "./CartButtons";
 import Categories from "./Categories";
 import {
-  Container,
   Row,
   Col,
   Card,
   Badge,
-  Button,
   CardHeader,
   CardBody,
 } from "react-bootstrap";
+import { Text } from "react-native-web";
 
 export default function ProductBlock(props) {
   const dispatch = useDispatch();
@@ -37,11 +36,10 @@ export default function ProductBlock(props) {
   let sorts = props.sort;
 
   const sortedProductArray = (s) => {
-    if (s === "id") return product
+    if (s === "id") return product;
     if (s === "names") return productsByNames;
     if (s === "tags") return productsByTags;
     if (s === "price") return productsByPrices;
-  
     else return filteredProducts;
   };
 
@@ -59,17 +57,18 @@ export default function ProductBlock(props) {
     return (
       <Col xs={4} className="mb-4">
         <Card className="h-100 w-100 shadow-lg border-0 bg-white rounded">
-          <CardHeader className="h5">
-            <span class="leftright">
-              <b>{pro.name}</b>
-              <Badge
-                pill
-                className="mb-0 font-weight-bold size-large text-light bg-primary"
-              >
-                👁️:
-                {!findUserData(pro.id) ? 0 : mapUserForSeen(pro.id)}
-              </Badge>
-            </span>
+          <CardHeader className="h4">
+            <Row className="justify-content-between">
+              <Col xs={9}>{pro.name}</Col>
+              <Col xs={3}>
+                <Badge
+                  pill
+                  className="mb-0 font-weight-bold size-large text-light bg-primary"
+                >
+                  👁️:&nbsp; {!findUserData(pro.id) ? 0 : mapUserForSeen(pro.id)}
+                </Badge>
+              </Col>
+            </Row>
           </CardHeader>
           <Link
             to={`./${pro.id}`}
@@ -98,7 +97,14 @@ export default function ProductBlock(props) {
                   pill
                   className="mb-0 font-weight-bold d-inline-flex align-items-center text-dark bg-warning"
                 >
-                  €{pro.price}
+                  <Text
+                    style={{
+                      fontWeight: "bold",
+                      fontSize: 18,
+                    }}
+                  >
+                    €{pro.price}
+                  </Text>
                 </Badge>
               </b>
               {!findUserData(pro.id) ? (

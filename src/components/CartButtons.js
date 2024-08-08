@@ -40,10 +40,7 @@ const CartFull = (props) => {
   const dispatch = useDispatch();
   return (
     <>
-      <Badge
-        pill
-        className="mb-0 pill-large bg-secondary"
-      >
+      <Badge pill className="mb-0 bg-secondary">
         <Text
           style={{
             fontWeight: "bold",
@@ -120,13 +117,6 @@ const UserCartEmpty = (props) => {
 
   return (
     <>
-      <div>
-        <Text
-          style={{
-            float: "right",
-            fontSize: 25,
-          }}
-        >
           Add to Cart
           <button
             className="button2"
@@ -137,8 +127,6 @@ const UserCartEmpty = (props) => {
           >
             <BsCartPlus size={25} />
           </button>
-        </Text>
-      </div>
     </>
   );
 };
@@ -148,34 +136,25 @@ const UserCartFull = (props) => {
   const dispatch = useDispatch();
   return (
     <>
-      <span>
-        <Text
-          style={{
-            float: "right",
-            fontSize: 25,
-          }}
-        >
-          <button
-            className="button2"
-            onClick={() => {
-              dispatch(reduceCart(props.id));
-              dispatch(reduceAmount(props.price));
-            }}
-          >
-            <BsCartDash size={25} />
-          </button>
-          {props.buy} in Cart
-          <button
-            className="button2"
-            onClick={() => {
-              dispatch(addToCart(props.id));
-              dispatch(addAmount(props.price));
-            }}
-          >
-            <BsCartPlus size={25} />
-          </button>
-        </Text>
-      </span>
+      <button
+        className="button2"
+        onClick={() => {
+          dispatch(reduceCart(props.id));
+          dispatch(reduceAmount(props.price));
+        }}
+      >
+        <BsCartDash size={25} />
+      </button>
+      {props.buy} in Cart
+      <button
+        className="button2"
+        onClick={() => {
+          dispatch(addToCart(props.id));
+          dispatch(addAmount(props.price));
+        }}
+      >
+        <BsCartPlus size={25} />
+      </button>
     </>
   );
 };

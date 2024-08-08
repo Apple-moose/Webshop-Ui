@@ -1,6 +1,6 @@
 import "../style/global.scss";
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fetchFullProduct } from "../store/productFullPage/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { selectFullProduct } from "../store/productFullPage/selectors";
@@ -11,6 +11,7 @@ import Categories from "../components/Categories";
 import { fetchReviewsByProdId } from "../store/reviews/actions";
 import ReviewsDisplay from "../components/Reviews";
 import { Text } from "react-native-web";
+import { Col, Container, Row, Button } from "react-bootstrap";
 
 export default function ProductPage() {
   const { id } = useParams();
@@ -25,6 +26,33 @@ export default function ProductPage() {
   const reviews = useSelector(selectReviews);
   const user = useSelector(selectUser);
 
+  const [showReviews, setShowReviews] = useState(false);
+  const onClick = () => setShowReviews((value) => !value);
+
+  const ProductReviews = () => (
+    <Container id="target">
+      <Row className="justify-content-end">
+        <Col xs={6} className="">
+          {reviews.map((r) => {
+            if (r.productId === product.id)
+              return (
+                <ReviewsDisplay
+                  imageUrl={r.userImgUrl}
+                  author={r.author}
+                  prodId={r.productId}
+                  content={r.content}
+                  stars={r.stars}
+                  userId={r.userId}
+                  createdAt={r.createdAt}
+                  updatedAt={r.updatedAt}
+                />
+              );
+          })}
+        </Col>
+      </Row>
+    </Container>
+  );
+
   return (
     <>
       <div>
@@ -35,79 +63,67 @@ export default function ProductPage() {
             <div class="mooseClick">
               ⭐️Please click on the Moose to go back to the Home Page⭐️
             </div>
-            <main class="container">
-              <div class="row">
-                <div class="col-6">
+            <Container>
+              <Row className="mt-5">
+                <Col md={6} className="align-self-center">
                   <img
-                    class="col-11"
+                    class="col-10"
                     src={product.imageUrl}
                     alt="not found!"
                   ></img>
-                </div>
-                <div class="col align-self-center">
-                  <p class="col-11">
-                    <h1>
-                      <b>{product.name}</b>
-                    </h1>
-                  </p>
-                  <p class="row">
-                    <div class="leftright">
-                      <span>
-                        {Categories.map((cat) => {
-                          if (cat.id === product.categoryId)
-                            return (
-                              <>
-                                Category:{" "}
-                                <Text
-                                  style={{
-                                    fontStyle: "italic",
-                                    fontWeight: "bold",
-                                    fontSize: 25,
-                                  }}
-                                >
-                                  {cat.name}
-                                </Text>
-                              </>
-                            );
+                </Col>
+                <Col className="align-self-center">
+                  <Row className="fs-2 fw-bold ms-1 mb-2">{product.name}</Row>
+                  <Row className="mb-3 fs-5">
+                    <Col xs={8}>
+                      {Categories.map((cat) => {
+                        if (cat.id === product.categoryId)
+                          return (
+                            <>
+                              Category:{" "}
+                              <Text
+                                style={{
+                                  fontStyle: "italic",
+                                  fontWeight: "bold",
+                                  fontSize: 25,
+                                }}
+                              >
+                                {cat.name}
+                              </Text>
+                            </>
+                          );
+                      })}
+                    </Col>
+                    <Col className="text-end">
+                      <Text
+                        style={{
+                          fontWeight: "bold",
+                          fontSize: 25,
+                        }}
+                      >
+                        👁️: &nbsp;
+                        {user.map((u) => {
+                          if (product.id === u.id) return !u.seen ? 0 : u.seen;
                         })}
-                      </span>
-                      <span>
-                        <Text
-                          style={{
-                            fontWeight: "bold",
-                            fontSize: 25,
-                          }}
-                        >
-                          👁️: &nbsp;
-                          {user.map((u) => {
-                            if (product.id === u.id)
-                              return !u.seen ? 0 : u.seen;
-                          })}
-                        </Text>
-                      </span>
-                    </div>
-                  </p>
-                  <div>
+                      </Text>
+                    </Col>
+                  </Row>
+                  <Row className="mb-4">
                     <Text
                       style={{
                         textAlign: "justify",
                         fontSize: 20,
                       }}
                     >
-                      <p>{product.description}</p>
+                      &nbsp;&nbsp;&nbsp;{product.description}
                     </Text>
-                  </div>
-                  <div>
-                    <Text
-                      style={{
-                        float: "left",
-                        fontSize: 25,
-                      }}
-                    >
+                  </Row>
+                  <Row className="mb-4">
+                    <Col className="fs-2 text-start">
                       <span class="exp">€</span>
-                      <span> {product.price} </span>
-                    </Text>
-                    <span>
+                      {product.price}
+                    </Col>
+                    <Col className="fs-3 text-end">
                       {user.map((u) => {
                         if (u.id === product.id)
                           return u.buy > 0 ? (
@@ -125,31 +141,26 @@ export default function ProductPage() {
                             />
                           );
                       })}
-                    </span>
-                  </div>
-                </div>
-                {/* <!-- Force next columns to break to new line --> */}
-                <div class="w-100"></div>
-                <div>
-                  <p>
-                    {reviews.map((r) => {
-                      if (r.productId === product.id)
-                        return (
-                          <ReviewsDisplay
-                            author={r.author}
-                            prodId={r.productId}
-                            content={r.content}
-                            stars={r.stars}
-                            userId={r.userId}
-                            createdAt={r.createdAt}
-                            updatedAt={r.updatedAt}
-                          />
-                        );
-                    })}
-                  </p>
-                </div>
-              </div>
-            </main>
+                    </Col>
+                  </Row>
+                  <Row className="justify-content-end">
+                    <Col md={6} className="text-end me-1">
+                      <Button
+                        variant="warning"
+                        className="fs-4"
+                        onClick={onClick}
+                      >
+                        {showReviews ? "Hide Reviews" : "Show Reviews"}
+                      </Button>
+                    </Col>
+                  </Row>
+                </Col>
+              </Row>
+            </Container>
+            {/* <!-- Force next columns to break to new line --> */}
+            <div class="w-100"></div>
+            <h2>&nbsp;</h2>
+            {showReviews ? <ProductReviews /> : null}
           </>
         )}
       </div>
