@@ -1,5 +1,11 @@
 import axios from "axios";
-import { startLoading, getToken, userLoggedIn } from "./slice";
+import {
+  startLoading,
+  getToken,
+  userLoggedIn,
+  getUserId,
+  getUserData,
+} from "./slice";
 
 const API_URL = `http://localhost:8000`;
 
@@ -33,6 +39,8 @@ export function Login(email, password, navigate) {
         const userName = data.data.firstname;
         dispatch(startLoading());
         dispatch(userLoggedIn(userName));
+        // console.log(data.data);
+        dispatch(getUserId(data.data.id));
         //???for some reason call useNavigate on the loginPage???
         navigate("/");
       })
@@ -51,7 +59,23 @@ export const bootstrapLogInState = () => async (dispatch) => {
     })
     .then((data) => {
       const userName = data.data.firstname;
+      // console.log(data.data);
       dispatch(userLoggedIn(userName));
+      dispatch(getUserId(data.data.id));
+    })
+    .catch((err) => console.log("err", err));
+};
+
+export const getMyUserData = () => async (dispatch, getState) => {
+  const tokenFromStorage = localStorage.getItem("tokenReceived");
+  axios
+    .get(API_URL + "/auth/me", {
+      headers: { Authorization: `Bearer ${tokenFromStorage} ` },
+    })
+    .then((data) => {
+      dispatch(startLoading());
+      // console.log(data.data);
+      dispatch(getUserData(data.data));
     })
     .catch((err) => console.log("err", err));
 };

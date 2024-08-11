@@ -137,11 +137,11 @@
   font-weight: normal !important;
   font-size: 1rem !important;
 }
-.cartToolbarSmall {
+/* .cartToolbarSmall {
   right: 10% !important;
   font-weight: normal !important;
-  font-size: 1rem !important;
-}
+  font-size: 1rem !important; */
+/* } */
 .rightBig {
   position: absolute !important;
   right: 1% !important;
@@ -150,7 +150,7 @@
   font-weight: bold;
   align-items: right !important;
 }
-.rightBigToolBarCart {
+/* .rightBigToolBarCart {
   color: white;
   position: absolute !important;
   top: 1%;
@@ -159,7 +159,7 @@
   font-weight: bold;
   align-items: right !important;
   margin-right: 3rem;
-}
+} */
 
 .left {
   margin-left: 0.2rem;

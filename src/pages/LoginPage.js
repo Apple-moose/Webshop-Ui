@@ -1,5 +1,6 @@
-import React, { useState } from "react";
 import "../style/global.scss";
+import { Button } from "react-bootstrap";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Login } from "../store/auth/actions";
@@ -20,18 +21,17 @@ export default function LoginPage() {
   return (
     <>
       <main>
-        <h1>&nbsp;</h1>
-        <div class="container">
+        <div class="container" className="mt-5 ms-5 me-4">
           <div class="row">
             <div
               class="col-6"
-              style={{ textAlign: "left", fontSize: "1.3rem" }}
+              style={{ textAlign: "left", fontSize: "1.8rem" }}
             >
               <h1>Login</h1>
               <form onSubmit={handleSubmit}>
                 <p>
                   <label>
-                    Email:{" "}
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Email:{" "}
                     <input
                       type="email"
                       value={email}
@@ -50,16 +50,17 @@ export default function LoginPage() {
                   </label>
                 </p>
                 <p>
-                  <button type="submit" className="buttonLogin">
-                    Login
-                  </button>
+                  <Button
+                    type="submit"
+                    variant="warning"
+                    className="fs-4 fw-bold fst-italic"
+                  >
+                    Send Login data
+                  </Button>
                 </p>
               </form>
             </div>
-            <div
-              class="col-6"
-              style={{ textAlign: "end", fontSize: "1.3rem" }}
-            >
+            <div class="col-6" style={{ textAlign: "end", fontSize: "1.8rem" }}>
               <SignupPage />
             </div>
           </div>

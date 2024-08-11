@@ -11,7 +11,7 @@ import Categories from "../components/Categories";
 import { fetchReviewsByProdId } from "../store/reviews/actions";
 import ReviewsDisplay from "../components/Reviews";
 import { Text } from "react-native-web";
-import { Col, Container, Row, Button } from "react-bootstrap";
+import { Col, Container, Row, Button, Image } from "react-bootstrap";
 
 export default function ProductPage() {
   const { id } = useParams();
@@ -65,12 +65,14 @@ export default function ProductPage() {
             </div>
             <Container>
               <Row className="mt-5">
-                <Col md={6} className="align-self-center">
-                  <img
-                    class="col-10"
+                <Col md={6} className="align-self-center text-center">
+                  <Image
                     src={product.imageUrl}
+                    className="shadow-lg"
+                    fluid
+                    width="90%"
                     alt="not found!"
-                  ></img>
+                  />
                 </Col>
                 <Col className="align-self-center">
                   <Row className="fs-2 fw-bold ms-1 mb-2">{product.name}</Row>

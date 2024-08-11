@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../style/global.scss";
+import { Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Signup } from "../store/signup/actions";
@@ -84,13 +85,14 @@ export default function SignupPage() {
             </label>
           </p>
           <p>
-            <button
+            <Button
               type="submit"
-              className="buttonLogin"
+              variant="outline-warning"
+              className="fs-4 fw-bold fst-italic"
               style={{ marginRight: "0rem" }}
             >
-              Signup
-            </button>
+              Send Signup data
+            </Button>
           </p>
         </form>
       </div>

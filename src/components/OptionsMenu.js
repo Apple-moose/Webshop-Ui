@@ -1,11 +1,12 @@
+import "../style/global.scss";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userLogOut } from "../store/auth/slice";
 import { newUserLogOut } from "../store/signup/slice";
-import "../style/global.scss";
-import { Toast } from "react-bootstrap";
+import { selectAuth } from "../store/auth/selectors";
+import { Card, Button, Stack } from "react-bootstrap";
 
-function OptionsMenu({ toggle }) {
+function OptionsMenu() {
   const navigate = useNavigate();
   const localStorageReset = () => {
     localStorage.removeItem("sorting");
@@ -17,55 +18,75 @@ function OptionsMenu({ toggle }) {
 
   return (
     <>
-      <Toast onClose={() => toggle(false)}>
-        <Toast.Header>
-          <strong className="mr-auto">OptionsMenu</strong>
-        </Toast.Header>
-        <p>
-          {" "}
-          <button className="buttonMenu" onClick={() => navigate("./login")}>
-            My Account
-          </button>
-        </p>
-        <p>
-          <button className="buttonMenu" onClick={() => navigate("./Cart")}>
+      <Card>
+        <Card.Header className="fs-2 fw-bold text-center rounded">
+          👉Options Menu👈
+        </Card.Header>
+        <Stack direction="horizontal" gap={2}>
+          <Button
+            variant="warning"
+            className="fs-2 fw-bold"
+            onClick={() => navigate("./login")}
+          >
+            User Login
+          </Button>
+
+          <Button className="fs-2 fw-bold" onClick={() => navigate("./Cart")}>
             My Purchases
-          </button>
-        </p>
-        <p>
-          <button className="buttonMenu" onClick={localStorageReset}>
+          </Button>
+
+          <Button
+            variant="danger"
+            className="fs-2 fw-bold"
+            onClick={localStorageReset}
+          >
             Clear Cache
-          </button>
-        </p>
-      </Toast>
+          </Button>
+        </Stack>
+      </Card>
     </>
   );
 }
 export { OptionsMenu };
 
-function OptionsMenuLogged({ toggle }) {
+function OptionsMenuLogged() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const auth = useSelector(selectAuth);
+
   return (
     <>
-      <Toast onClose={() => toggle(false)}>
-        <Toast.Header>
-          <button
-            className="buttonMenu"
+      <Card>
+        <Card.Header className="fs-2 fw-bold text-center">
+          👉Options Menu👈
+        </Card.Header>
+        <Stack direction="horizontal" gap={2}>
+          <Button
+            variant="outline-success"
+            className="fs-2 fw-bold"
+            onClick={() => navigate("./Cart")}
+          >
+            Pending Purchases
+          </Button>
+          <Button
+            variant="outline-danger"
+            className="fs-2 fw-bold"
+            onClick={() => navigate(`./User/${auth.userId}`)}
+          >
+            {auth.me}'s User Page
+          </Button>
+          <Button
+            variant="outline-info"
+            className="fs-2 fw-bold"
             onClick={() =>
               dispatch(userLogOut(), dispatch(newUserLogOut()), navigate("./"))
             }
           >
-            Log out
-          </button>
-          <p>
-            <button className="buttonMenu" onClick={() => navigate("./Cart")}>
-              Go to Cart
-            </button>
-          </p>
-        </Toast.Header>
-      </Toast>
+            Log me out
+          </Button>
+        </Stack>
+      </Card>
     </>
   );
 }

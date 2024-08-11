@@ -9,12 +9,12 @@ import UserCartPage from "./pages/UserCartPage";
 import Toolbar from "./components/Toolbar";
 import BuyPage from "./pages/BuyPage";
 import LoginPage from "./pages/LoginPage";
+import UserAccountPage from "./pages/UserAccountPage";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchProducts } from "./store/products/actions";
 import { bootstrapLogInState } from "./store/auth/actions";
-// import { bootstrapUser } from "./store/user/slice";
-
+import { Overlay } from "react-bootstrap";
 function App() {
   const dispatch = useDispatch();
 
@@ -24,7 +24,7 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div>
+    <>
       <Toolbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -32,8 +32,9 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/Cart" element={<UserCartPage />} />
         <Route path="/Buy" element={<BuyPage />} />
+        <Route path="/User/:id" element={<UserAccountPage />} />
       </Routes>
-    </div>
+    </>
   );
 }
 

@@ -56,7 +56,7 @@ export default function ProductBlock(props) {
   return sortedProductArray(sorts).map((pro) => {
     return (
       <Col xs={4} className="mb-4">
-        <Card className="h-100 w-100 shadow-lg border-0 bg-white rounded">
+        <Card className="h-100 w-100 shadow border-0 bg-white rounded">
           <CardHeader className="h4">
             <Row className="justify-content-between">
               <Col xs={9}>{pro.name}</Col>

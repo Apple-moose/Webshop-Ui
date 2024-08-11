@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   userArray: [
-    { id: 0, seen: 0, buy: 0 },
+    // { id: 0, seen: 0, buy: 0 },
   ],
 };
 
@@ -75,7 +75,7 @@ const userSlice = createSlice({
       !localStorage.userData
         ? (state.userArray = firstArray)
         : (state.userArray = JSON.parse(localStorage.getItem("userData")));
-      console.log(firstArray);
+      // console.log(firstArray);
     },
   },
 });

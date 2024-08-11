@@ -15,8 +15,7 @@ export default function HomePage() {
 
   return (
     <>
-      <h7>&nbsp;</h7>
-      <Container>
+      <Container className="mt-5">
         <Card className="shadow-lg border-0 bg-white rounded">
           <CardHeader className="h5">
             <Row className="justify-content-md-left">
@@ -35,7 +34,6 @@ export default function HomePage() {
                 </Form.Select>
               </Col>
               <Col md="4">
-                {/* ...or Filter by Category:{" "} */}
                 <Form.Select
                   value={selectSorting}
                   onChange={(e) => {
