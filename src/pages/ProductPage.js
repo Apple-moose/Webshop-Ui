@@ -6,12 +6,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectFullProduct } from "../store/productFullPage/selectors";
 import { selectReviews } from "../store/reviews/selectors";
 import { selectUser } from "../store/user/selectors";
+import { selectAuth } from "../store/auth/selectors";
 import { UserCartEmpty, UserCartFull } from "../components/CartButtons";
 import Categories from "../components/Categories";
-import { fetchReviewsByProdId } from "../store/reviews/actions";
+import { fetchReviewsByProdId, writeReview } from "../store/reviews/actions";
+
 import ReviewsDisplay from "../components/Reviews";
 import { Text } from "react-native-web";
-import { Col, Container, Row, Button, Image } from "react-bootstrap";
+import {
+  Col,
+  Container,
+  Row,
+  Button,
+  Image,
+  Modal,
+  Form,
+} from "react-bootstrap";
 
 export default function ProductPage() {
   const { id } = useParams();
@@ -25,9 +35,21 @@ export default function ProductPage() {
   const product = useSelector(selectFullProduct);
   const reviews = useSelector(selectReviews);
   const user = useSelector(selectUser);
+  const currentUser = useSelector(selectAuth);
 
   const [showReviews, setShowReviews] = useState(false);
   const onClick = () => setShowReviews((value) => !value);
+
+  const [currentUserId] = useState(currentUser.userId);
+  const [currentUserName] = useState(currentUser.me);
+  console.log(currentUserId);
+
+  const [showForm, setShowForm] = useState(false);
+  const [stars, setStars] = useState(null);
+  const [content, setContent] = useState(null);
+
+  const onHideForm = () => setShowForm(false);
+  const onClickForm = () => setShowForm(true);
 
   const ProductReviews = () => (
     <Container id="target">
@@ -156,6 +178,19 @@ export default function ProductPage() {
                       </Button>
                     </Col>
                   </Row>
+                  {!currentUserId ? null : (
+                    <Row className="mt-3 justify-content-end">
+                      <Col md={6} className="text-end me-1">
+                        <Button
+                          variant="outline-danger"
+                          className="fs-5 text-black"
+                          onClick={onClickForm}
+                        >
+                          Write Review
+                        </Button>
+                      </Col>
+                    </Row>
+                  )}
                 </Col>
               </Row>
             </Container>
@@ -163,6 +198,57 @@ export default function ProductPage() {
             <div class="w-100"></div>
             <h2>&nbsp;</h2>
             {showReviews ? <ProductReviews /> : null}
+            <Modal show={showForm} onHide={onHideForm}>
+              <Modal.Header closeButton>
+                <Modal.Title>My Review</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <Form>
+                  <Form.Group className="mb-3">
+                    <Form.Label>Stars</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder={`(insert a number from 1 to 5)`}
+                      value={stars}
+                      onChange={(e) => setStars(e.target.value)}
+                      autoFocus
+                    />
+                  </Form.Group>
+                  <Form.Group className="mb-3">
+                    <Form.Label>Review Content</Form.Label>
+                    <Form.Control
+                      as="textarea"
+                      rows={10}
+                      placeholder={`(max 200 characters)`}
+                      value={content}
+                      onChange={(e) => setContent(e.target.value)}
+                    />
+                  </Form.Group>
+                </Form>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button
+                  type="button"
+                  variant="warning"
+                  className="fs-6 fw-bold fst-italic"
+                  onClick={() => {
+                    dispatch(writeReview(id, currentUserName, stars, content))
+                      .then(() => {
+                        dispatch(fetchReviewsByProdId(id));
+                        onHideForm();
+                      })
+                      .catch((error) => {
+                        console.error("failed to reload reviews!!", error);
+                      });
+                  }}
+                >
+                  Send Review
+                </Button>
+                <Button variant="secondary" onClick={onHideForm}>
+                  Close
+                </Button>
+              </Modal.Footer>
+            </Modal>
           </>
         )}
       </div>

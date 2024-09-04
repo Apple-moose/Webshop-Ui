@@ -48,3 +48,27 @@ export const modifyReview = (reviewId, stars, content) => {
     }
   };
 };
+
+export const writeReview = (prodId, author, stars, content) => {
+  return async function thunk() {
+    const tokenFromStorage = localStorage.getItem("tokenReceived");
+
+    try {
+      const response = await axios.post(
+        API_URL + `/review/${prodId}`,
+        {
+          author: author,
+          content: content,
+          stars: stars,
+        },
+        {
+          headers: { Authorization: `Bearer ${tokenFromStorage} ` },
+        }
+      );
+      console.log(response.data);
+      return response.data;
+    } catch (err) {
+      console.log("User Login Error", err);
+    }
+  };
+};

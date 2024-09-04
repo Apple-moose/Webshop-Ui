@@ -240,7 +240,7 @@ export default function UserAccountPage() {
                 placeholder={`current: ${stars} ->(insert a number from 1 to 5)`}
                 value={stars}
                 onChange={(e) => setStars(e.target.value)}
-                autoFocus
+                autoFocus //put cursor in this field
               />
             </Form.Group>
             <Form.Group className="mb-3">
@@ -261,8 +261,14 @@ export default function UserAccountPage() {
             variant="warning"
             className="fs-6 fw-bold fst-italic"
             onClick={() => {
-              dispatch(modifyReview(reviewId, stars, content));
-              onHideForm();
+              dispatch(modifyReview(reviewId, stars, content))
+                .then(() => {
+                  dispatch(fetchMyReviews());
+                  onHideForm();
+                })
+                .catch((error) => {
+                  console.error("failed to reload reviews!!", error);
+                });
             }}
           >
             Send Updates
