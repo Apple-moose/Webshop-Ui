@@ -30,7 +30,7 @@ export function Login(email, password, navigate) {
 
     const tokenReceived = getState().auth.accessToken;
     localStorage.setItem("tokenReceived", tokenReceived);
-    console.log("from auth actions:", tokenReceived);
+    // console.log("from auth actions:", tokenReceived);
     axios
       .get(API_URL + "/auth/me", {
         headers: { Authorization: `Bearer ${tokenReceived} ` },
@@ -39,10 +39,9 @@ export function Login(email, password, navigate) {
         const userName = data.data.firstname;
         dispatch(startLoading());
         dispatch(userLoggedIn(userName));
-        // console.log(data.data);
         dispatch(getUserId(data.data.id));
         //???for some reason call useNavigate on the loginPage???
-        navigate("/");
+        navigate("/"); 
       })
       .catch((err) => console.log("err", err));
   };
@@ -58,9 +57,8 @@ export const bootstrapLogInState = () => async (dispatch) => {
       headers: { Authorization: `Bearer ${tokenFromStorage} ` },
     })
     .then((data) => {
-      const userName = data.data.firstname;
-      // console.log(data.data);
-      dispatch(userLoggedIn(userName));
+      // const userName = data.data.firstname;
+      dispatch(userLoggedIn(data.data.firstname));
       dispatch(getUserId(data.data.id));
     })
     .catch((err) => console.log("err", err));
@@ -74,7 +72,6 @@ export const getMyUserData = () => async (dispatch, getState) => {
     })
     .then((data) => {
       dispatch(startLoading());
-      // console.log(data.data);
       dispatch(getUserData(data.data));
     })
     .catch((err) => console.log("err", err));

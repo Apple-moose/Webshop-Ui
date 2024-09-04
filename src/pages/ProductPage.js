@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectFullProduct } from "../store/productFullPage/selectors";
 import { selectReviews } from "../store/reviews/selectors";
 import { selectUser } from "../store/user/selectors";
-import { selectAuth } from "../store/auth/selectors";
 import { UserCartEmpty, UserCartFull } from "../components/CartButtons";
 import Categories from "../components/Categories";
 import { fetchReviewsByProdId, writeReview } from "../store/reviews/actions";
@@ -26,23 +25,17 @@ import {
 export default function ProductPage() {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const product = useSelector(selectFullProduct);
+  const reviews = useSelector(selectReviews);
+  const user = useSelector(selectUser);
 
   useEffect(() => {
     dispatch(fetchFullProduct(id));
     dispatch(fetchReviewsByProdId(id));
   }, [dispatch, id]);
 
-  const product = useSelector(selectFullProduct);
-  const reviews = useSelector(selectReviews);
-  const user = useSelector(selectUser);
-  const currentUser = useSelector(selectAuth);
-
   const [showReviews, setShowReviews] = useState(false);
   const onClick = () => setShowReviews((value) => !value);
-
-  const [currentUserId] = useState(currentUser.userId);
-  const [currentUserName] = useState(currentUser.me);
-  console.log(currentUserId);
 
   const [showForm, setShowForm] = useState(false);
   const [stars, setStars] = useState(null);
@@ -59,6 +52,7 @@ export default function ProductPage() {
             if (r.productId === product.id)
               return (
                 <ReviewsDisplay
+                  key={r.id}
                   imageUrl={r.userImgUrl}
                   author={r.author}
                   prodId={r.productId}
@@ -82,7 +76,7 @@ export default function ProductPage() {
           <p>Loading...</p>
         ) : (
           <>
-            <div class="mooseClick">
+            <div className="mooseClick">
               ⭐️Please click on the Moose to go back to the Home Page⭐️
             </div>
             <Container>
@@ -103,7 +97,7 @@ export default function ProductPage() {
                       {Categories.map((cat) => {
                         if (cat.id === product.categoryId)
                           return (
-                            <>
+                            <span key={cat.id}>
                               Category:{" "}
                               <Text
                                 style={{
@@ -114,8 +108,9 @@ export default function ProductPage() {
                               >
                                 {cat.name}
                               </Text>
-                            </>
+                            </span>
                           );
+                        return null; // Adding return null for safety
                       })}
                     </Col>
                     <Col className="text-end">
@@ -127,7 +122,11 @@ export default function ProductPage() {
                       >
                         👁️: &nbsp;
                         {user.map((u) => {
-                          if (product.id === u.id) return !u.seen ? 0 : u.seen;
+                          if (product.id === u.id)
+                            return (
+                              <span key={u.id}>{!u.seen ? 0 : u.seen}</span>
+                            );
+                          return null;
                         })}
                       </Text>
                     </Col>
@@ -144,7 +143,7 @@ export default function ProductPage() {
                   </Row>
                   <Row className="mb-4">
                     <Col className="fs-2 text-start">
-                      <span class="exp">€</span>
+                      <span className="exp">€</span>
                       {product.price}
                     </Col>
                     <Col className="fs-3 text-end">
@@ -178,7 +177,7 @@ export default function ProductPage() {
                       </Button>
                     </Col>
                   </Row>
-                  {!currentUserId ? null : (
+                  {!localStorage.userName ? null : (
                     <Row className="mt-3 justify-content-end">
                       <Col md={6} className="text-end me-1">
                         <Button
@@ -195,7 +194,7 @@ export default function ProductPage() {
               </Row>
             </Container>
             {/* <!-- Force next columns to break to new line --> */}
-            <div class="w-100"></div>
+            <div className="w-100"></div>
             <h2>&nbsp;</h2>
             {showReviews ? <ProductReviews /> : null}
             <Modal show={showForm} onHide={onHideForm}>
@@ -232,10 +231,13 @@ export default function ProductPage() {
                   variant="warning"
                   className="fs-6 fw-bold fst-italic"
                   onClick={() => {
-                    dispatch(writeReview(id, currentUserName, stars, content))
+                    dispatch(
+                      writeReview(id, localStorage.userName, stars, content)
+                    )
                       .then(() => {
                         dispatch(fetchReviewsByProdId(id));
                         onHideForm();
+                        onClick();
                       })
                       .catch((error) => {
                         console.error("failed to reload reviews!!", error);
