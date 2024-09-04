@@ -1,6 +1,6 @@
 import "../style/global.scss";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { selectProducts } from "../store/products/selectors";
 import { selectUser } from "../store/user/selectors";
 import { selectBank } from "../store/bank/selectors";
@@ -24,7 +24,7 @@ export default function UserCartPage() {
     return (
       <>
         <p>
-          <span class="mooseClick">
+          <span className="mooseClick">
             ⭐️Please click on the Moose to go back to the HomePage⭐️
           </span>
         </p>
@@ -37,7 +37,7 @@ export default function UserCartPage() {
         <h3>&nbsp;</h3>
         <h1>&nbsp;&nbsp;Your Shopping cart</h1>
         <h1>&nbsp;</h1>
-        <main class="container-fluid">
+        <main className="container-fluid">
           <div>
             {user.map((u) => {
               if (u.buy > 0)
@@ -54,14 +54,16 @@ export default function UserCartPage() {
                                   textAlign: "left",
                                 }}
                               >
-                                <div class="row justify-content-between">
+                                <div className="row justify-content-between">
+                                <div className="col-1">
+                                <Link to={`../${pr.id}`}>
                                   <img
-                                    class="col-1"
+                                    width="100%"
                                     src={pr.imageUrl}
                                     alt="not found!"
-                                  ></img>
+                                  ></img></Link></div>
                                   <div
-                                    class="col-4 align-self-center"
+                                    className="col-3 align-self-center"
                                     style={{
                                       textAlign: "left",
                                       marginLeft: "0.5rem",
@@ -70,12 +72,12 @@ export default function UserCartPage() {
                                     <span>&nbsp;{pr.name}</span>
                                   </div>
 
-                                  <div class="col-2 align-self-center">
-                                    unit: <span class="exp">€</span>
+                                  <div className="col-2 align-self-center">
+                                    unit: <span className="exp">€</span>
                                     {pr.price}{" "}
                                   </div>
                                   <div
-                                    class="col-2 align-self-center"
+                                    className="col-3 align-self-center"
                                     style={{ textAlign: "right" }}
                                   >
                                     <CartIncrements
@@ -86,10 +88,10 @@ export default function UserCartPage() {
                                     />
                                   </div>
                                   <div
-                                    class="col-2 align-self-center"
+                                    className="col-2 align-self-center"
                                     style={{ textAlign: "right" }}
                                   >
-                                    Total: <span class="exp">€</span>
+                                    Total: <span className="exp">€</span>
                                     {pr.price * u.buy}&nbsp;&nbsp;
                                   </div>
                                   <hr />
@@ -105,7 +107,7 @@ export default function UserCartPage() {
             })}
           </div>
         </main>
-        <main class="container-fluid">
+        <main className="container-fluid">
           <Row className="justify-content-end">
             <Col md="3">
               <Stack gap={4}>
@@ -119,7 +121,7 @@ export default function UserCartPage() {
                     float: "right",
                   }}
                 >
-                  Total Amount: <span class="exp">€</span>
+                  Total Amount: <span className="exp">€</span>
                   {total}
                 </Text>
                 <Button
