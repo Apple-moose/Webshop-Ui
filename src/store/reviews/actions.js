@@ -72,3 +72,35 @@ export const writeReview = (prodId, author, stars, content) => {
     }
   };
 };
+
+// export const deleteReview = (reviewId) => {
+//   return async function thunk() {
+//     const tokenFromStorage = localStorage.getItem("tokenReceived");
+
+//     try {
+//       const response = await axios.delete(
+//         API_URL + `/review/${reviewId}`,
+//         {
+//           id: reviewId
+//         },
+//         {
+//           headers: { Authorization: `Bearer ${tokenFromStorage} ` },
+//         }
+//       );
+//       return response.data; // Assuming you want to use the response data
+//     } catch (err) {
+//       console.log("User Login Error", err);
+//     }
+//   };
+// };
+
+export const deleteReview = (id) => {
+  return async function thunk() {
+    const tokenFromStorage = localStorage.getItem("tokenReceived");
+    axios
+      .delete(API_URL + `/review/${id}`, {
+        headers: { Authorization: `Bearer ${tokenFromStorage} ` },
+      })
+      .catch((err) => console.log("err", err));
+  };
+};

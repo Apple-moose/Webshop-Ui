@@ -18,7 +18,11 @@ import {
   Modal,
   Form,
 } from "react-bootstrap";
-import { fetchMyReviews, modifyReview } from "../store/reviews/actions";
+import {
+  fetchMyReviews,
+  modifyReview,
+  deleteReview,
+} from "../store/reviews/actions";
 
 export default function UserAccountPage() {
   const dispatch = useDispatch();
@@ -35,6 +39,7 @@ export default function UserAccountPage() {
   const [showReviews, setShowReviews] = useState(false);
   const [showData, setShowData] = useState(false);
   const [showForm, setShowForm] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
   const [stars, setStars] = useState(null);
   const [content, setContent] = useState(null);
   const [reviewId, setReviewId] = useState(0);
@@ -42,7 +47,9 @@ export default function UserAccountPage() {
   const onClickReviews = () => setShowReviews((value) => !value);
   const onClickData = () => setShowData((value) => !value);
   const onClickForm = () => setShowForm(true);
+  const onClickDelete = () => setShowDelete(true);
   const onHideForm = () => setShowForm(false);
+  const onHideDelete = () => setShowDelete(false);
   const findStars = (s) => setStars(s);
   const findContent = (c) => setContent(c);
   const findReviewId = (r) => setReviewId(r);
@@ -212,7 +219,10 @@ export default function UserAccountPage() {
                             <Button
                               variant="outline-danger"
                               className="mb-3 fs-6"
-                              // onClick={onClickReviews}
+                              onClick={() => {
+                                dispatch(onClickDelete);
+                                findReviewId(r.id);
+                              }}
                             >
                               Erase my Review
                             </Button>
@@ -275,6 +285,34 @@ export default function UserAccountPage() {
           </Button>
           <Button variant="secondary" onClick={onHideForm}>
             Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={showDelete} onHide={onHideDelete}>
+        <Modal.Header closeButton>
+          <Modal.Title>Delete Review?</Modal.Title>
+        </Modal.Header>
+        <Modal.Footer>
+          <Button
+            type="button"
+            variant="warning"
+            className="fs-6 fw-bold fst-italic"
+            onClick={() => {
+              dispatch(deleteReview(reviewId))
+                .then(() => {
+                  dispatch(fetchMyReviews());
+                  onHideDelete();
+                })
+                .catch((error) => {
+                  console.error("failed to delete reviews!!", error);
+                });
+            }}
+          >
+            Yes
+          </Button>
+          <Button variant="secondary" onClick={onHideDelete}>
+            No
           </Button>
         </Modal.Footer>
       </Modal>
