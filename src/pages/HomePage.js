@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import ProductBlock from "../components/ProductBlock";
-import Categories from "../components/Categories";
+import { selectCategory } from "../store/category/selectors";
 import { Container, Row, Col, Card, CardHeader, Form } from "react-bootstrap";
 import "../style/global.scss";
+import { useSelector } from "react-redux";
 
 export default function HomePage() {
+  const categories = useSelector(selectCategory);
+
   const [selectSorting, setSelectSorting] = useState("names");
 
   useEffect(() => {
@@ -44,7 +47,7 @@ export default function HomePage() {
                   <option key="0" value="names">
                     All Categories
                   </option>
-                  {Categories.map((c) => (
+                  {categories.map((c) => (
                     <option key={c.id} value={c.id}>
                       {c.name}
                     </option>

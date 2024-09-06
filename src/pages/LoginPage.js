@@ -21,10 +21,10 @@ export default function LoginPage() {
   return (
     <>
       <main>
-        <div class="container" className="mt-5 ms-5 me-4">
-          <div class="row">
+        <div className="container mt-5 ms-5 me-4">
+          <div className="row">
             <div
-              class="col-6"
+              className="col-6"
               style={{ textAlign: "left", fontSize: "1.8rem" }}
             >
               <h1>Login</h1>
@@ -60,7 +60,10 @@ export default function LoginPage() {
                 </p>
               </form>
             </div>
-            <div class="col-6" style={{ textAlign: "end", fontSize: "1.8rem" }}>
+            <div
+              className="col-6"
+              style={{ textAlign: "end", fontSize: "1.8rem" }}
+            >
               <SignupPage />
             </div>
           </div>

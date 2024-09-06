@@ -1,9 +1,5 @@
 import "../style/global.scss";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { userLogOut } from "../store/auth/slice";
-import { newUserLogOut } from "../store/signup/slice";
-import { selectAuth } from "../store/auth/selectors";
 import { Card, Button, Stack } from "react-bootstrap";
 
 function ReviewUpdateForm() {

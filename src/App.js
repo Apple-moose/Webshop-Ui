@@ -12,13 +12,14 @@ import LoginPage from "./pages/LoginPage";
 import UserAccountPage from "./pages/UserAccountPage";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { fetchCategory } from "./store/category/actions";
 import { fetchProducts } from "./store/products/actions";
 import { bootstrapLogInState } from "./store/auth/actions";
-import { Overlay } from "react-bootstrap";
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(fetchCategory);
     dispatch(fetchProducts);
     dispatch(bootstrapLogInState());
   }, [dispatch]);

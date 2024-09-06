@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   userArray: [
-    // { id: 0, seen: 0, buy: 0 },
+    // form is: { id: 0, seen: 0, buy: 0 },
   ],
 };
 
@@ -12,14 +12,10 @@ const userSlice = createSlice({
   reducers: {
     resetCartData: (state) => {
       state.userArray = state.userArray.map((pro) => {
-        return { ...pro, seen: 0, buy: 0 };
+        return { ...pro, buy: 0 };
       });
-      //LocalStorage
-      // localStorage.setItem("userData", JSON.stringify(state.userArray));
-
+      //LocalStorage function______________________________
       localStorage.setItem("userData", JSON.stringify(initialState.userArray));
-      // console.log(localStorage);
-      // console.log(state.userArray);
     },
     addToCart: (state, action) => {
       const pId = action.payload;
@@ -70,12 +66,10 @@ const userSlice = createSlice({
       localStorage.setItem("userData", JSON.stringify(state.userArray));
     },
     bootstrapUser: (state) => {
-      // localStorage.setItem("userData", JSON.stringify(state.userArray));
       const firstArray = state.userArray;
       !localStorage.userData
         ? (state.userArray = firstArray)
         : (state.userArray = JSON.parse(localStorage.getItem("userData")));
-      // console.log(firstArray);
     },
   },
 });

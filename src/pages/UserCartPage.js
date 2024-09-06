@@ -42,68 +42,69 @@ export default function UserCartPage() {
             {user.map((u) => {
               if (u.buy > 0)
                 return (
-                  <>
-                    <p>
-                      {product.map((pr) => {
-                        if (pr.id === u.id) {
-                          return (
-                            <>
-                              <Text
-                                style={{
-                                  fontSize: 25,
-                                  textAlign: "left",
-                                }}
-                              >
-                                <div className="row justify-content-between">
-                                <div className="col-1">
+                  <div key={u.id}>
+                    {product.map((pr) => {
+                      if (pr.id === u.id) {
+                        return (
+                          <Text
+                            key={pr.id}
+                            style={{
+                              fontSize: 25,
+                              textAlign: "left",
+                            }}
+                          >
+                            <div className="row justify-content-between ms-1 ">
+                              <div className="col-1 mb-4">
                                 <Link to={`../${pr.id}`}>
                                   <img
                                     width="100%"
                                     src={pr.imageUrl}
                                     alt="not found!"
-                                  ></img></Link></div>
-                                  <div
-                                    className="col-3 align-self-center"
-                                    style={{
-                                      textAlign: "left",
-                                      marginLeft: "0.5rem",
-                                    }}
-                                  >
-                                    <span>&nbsp;{pr.name}</span>
-                                  </div>
+                                  ></img>
+                                </Link>
+                              </div>
+                              <div
+                                className="col-3 align-self-center"
+                                style={{
+                                  textAlign: "left",
+                                  marginLeft: "0.5rem",
+                                }}
+                              >
+                                <span>&nbsp;{pr.name}</span>
+                              </div>
 
-                                  <div className="col-2 align-self-center">
-                                    unit: <span className="exp">€</span>
-                                    {pr.price}{" "}
-                                  </div>
-                                  <div
-                                    className="col-3 align-self-center"
-                                    style={{ textAlign: "right" }}
-                                  >
-                                    <CartIncrements
-                                      key={u.id}
-                                      id={u.id}
-                                      buy={u.buy}
-                                      price={pr.price}
-                                    />
-                                  </div>
-                                  <div
-                                    className="col-2 align-self-center"
-                                    style={{ textAlign: "right" }}
-                                  >
-                                    Total: <span className="exp">€</span>
-                                    {pr.price * u.buy}&nbsp;&nbsp;
-                                  </div>
-                                  <hr />
-                                </div>
-                              </Text>
-                            </>
-                          );
-                        }
-                      })}
-                    </p>
-                  </>
+                              <div className="col-2 align-self-center">
+                                unit: <span className="exp">€</span>
+                                {pr.price}{" "}
+                              </div>
+                              <div
+                                className="col-3 align-self-center"
+                                style={{ textAlign: "right" }}
+                              >
+                                <CartIncrements
+                                  key={`${u.id}-${pr.id}`}
+                                  id={u.id}
+                                  buy={u.buy}
+                                  price={pr.price}
+                                />
+                              </div>
+                              <div
+                                className="col-2 align-self-center"
+                                style={{ textAlign: "right" }}
+                              >
+                                Total: <span className="exp">€</span>
+                                {pr.price * u.buy}&nbsp;&nbsp;
+                              </div>
+                              <hr />
+                            </div>
+                          </Text>
+                        );
+                      }
+                      return null;
+                    })}
+                  </div>
                 );
+              return null;
             })}
           </div>
         </main>

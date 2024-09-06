@@ -11,7 +11,7 @@ const API_URL = `http://localhost:8000`;
 
 export function Login(email, password, navigate) {
   return async function thunk(dispatch, getState) {
-    //best idea woukd be (correct syntax await fault)
+    //best idea would be (correct syntax await fault)
     /* <script src="https://gist.github.com/wearethefoos/9623c25126cab91fe51f6bbda874a16a.js"></script> */
 
     //SEE BELLOW OR PROMISES.JS!!

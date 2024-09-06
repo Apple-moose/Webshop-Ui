@@ -10,16 +10,17 @@ import {
   selectProductsByPrices,
   selectFilteredProducts,
 } from "../store/products/selectors";
+import { selectCategory } from "../store/category/selectors";
 import { selectUser } from "../store/user/selectors";
 import { productSeen } from "../store/user/slice";
 import { CartEmpty, CartFull } from "./CartButtons";
-import Categories from "./Categories";
 import { Row, Col, Card, Badge, CardHeader, CardBody } from "react-bootstrap";
 import { Text } from "react-native-web";
 
 export default function ProductBlock(props) {
   const dispatch = useDispatch();
   const product = useSelector(selectProducts);
+  const categories = useSelector(selectCategory);
   const productsByNames = useSelector(selectProductsByNames);
   const productsByTags = useSelector(selectProductsByTags);
   const productsByPrices = useSelector(selectProductsByPrices);
@@ -43,6 +44,7 @@ export default function ProductBlock(props) {
   const mapUserForSeen = (proId) => {
     return user.map((u) => {
       if (u.id === proId) return !u.seen ? 0 : u.seen;
+      return null;
     });
   };
 
@@ -80,7 +82,7 @@ export default function ProductBlock(props) {
           <CardBody className="card-footer h5">
             <p>
               Category:{" "}
-              {Categories.map((cat) => {
+              {categories.map((cat) => {
                 if (cat.id === pro.categoryId)
                   return <span key={`cat-${cat.id}`}>{cat.name}</span>;
                 return null;
@@ -117,6 +119,7 @@ export default function ProductBlock(props) {
                     ) : (
                       <CartEmpty key={u.id} id={u.id} price={pro.price} />
                     );
+                  return null;
                 })
               )}{" "}
             </span>

@@ -1,5 +1,9 @@
 import { createSelector } from "reselect";
 
+//"createSelector" Memoization: Using createSelector ensures that 
+//the selector only recalculates the output if the inputs change.
+// This prevents unnecessary re-renders
+
 // Base selector
 const selectProductState = (reduxState) => reduxState.products.products;
 

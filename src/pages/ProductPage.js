@@ -7,8 +7,8 @@ import { selectFullProduct } from "../store/productFullPage/selectors";
 import { selectReviews } from "../store/reviews/selectors";
 import { selectUser } from "../store/user/selectors";
 import { selectAuth } from "../store/auth/selectors";
+import { selectCategory } from "../store/category/selectors";
 import { UserCartEmpty, UserCartFull } from "../components/CartButtons";
-import Categories from "../components/Categories";
 import { fetchReviewsByProdId, writeReview } from "../store/reviews/actions";
 
 import ReviewsDisplay from "../components/Reviews";
@@ -27,6 +27,7 @@ export default function ProductPage() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const product = useSelector(selectFullProduct);
+  const categories = useSelector(selectCategory);
   const reviews = useSelector(selectReviews);
   const user = useSelector(selectUser);
   const auth = useSelector(selectAuth);
@@ -97,7 +98,7 @@ export default function ProductPage() {
                   <Row className="fs-2 fw-bold ms-1 mb-2">{product.name}</Row>
                   <Row className="mb-3 fs-5">
                     <Col xs={8}>
-                      {Categories.map((cat) => {
+                      {categories.map((cat) => {
                         if (cat.id === product.categoryId)
                           return (
                             <span key={cat.id}>
