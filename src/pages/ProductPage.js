@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectFullProduct } from "../store/productFullPage/selectors";
 import { selectReviews } from "../store/reviews/selectors";
 import { selectUser } from "../store/user/selectors";
+import { selectAuth } from "../store/auth/selectors";
 import { UserCartEmpty, UserCartFull } from "../components/CartButtons";
 import Categories from "../components/Categories";
 import { fetchReviewsByProdId, writeReview } from "../store/reviews/actions";
@@ -28,6 +29,7 @@ export default function ProductPage() {
   const product = useSelector(selectFullProduct);
   const reviews = useSelector(selectReviews);
   const user = useSelector(selectUser);
+  const auth = useSelector(selectAuth);
 
   useEffect(() => {
     dispatch(fetchFullProduct(id));
@@ -63,6 +65,7 @@ export default function ProductPage() {
                   updatedAt={r.updatedAt}
                 />
               );
+            return null;
           })}
         </Col>
       </Row>
@@ -151,14 +154,14 @@ export default function ProductPage() {
                         if (u.id === product.id)
                           return u.buy > 0 ? (
                             <UserCartFull
-                              key={u.id}
+                              key={`uc-${u.id}`}
                               id={u.id}
                               buy={u.buy}
                               price={product.price}
                             />
                           ) : (
                             <UserCartEmpty
-                              key={u.id}
+                              key={`ue-${u.id}`}
                               id={u.id}
                               price={product.price}
                             />
@@ -173,11 +176,15 @@ export default function ProductPage() {
                         className="fs-4"
                         onClick={onClick}
                       >
-                        {showReviews ? "Hide Reviews" : "Show Reviews"}
+                        {reviews?.length === 0
+                          ? "No Reviews yet!"
+                          : showReviews
+                          ? "Hide Reviews"
+                          : `Show ${reviews?.length} Reviews`}
                       </Button>
                     </Col>
                   </Row>
-                  {!localStorage.userName ? null : (
+                  {!auth.me ? null : (
                     <Row className="mt-3 justify-content-end">
                       <Col md={6} className="text-end me-1">
                         <Button

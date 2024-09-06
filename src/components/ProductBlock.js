@@ -14,14 +14,7 @@ import { selectUser } from "../store/user/selectors";
 import { productSeen } from "../store/user/slice";
 import { CartEmpty, CartFull } from "./CartButtons";
 import Categories from "./Categories";
-import {
-  Row,
-  Col,
-  Card,
-  Badge,
-  CardHeader,
-  CardBody,
-} from "react-bootstrap";
+import { Row, Col, Card, Badge, CardHeader, CardBody } from "react-bootstrap";
 import { Text } from "react-native-web";
 
 export default function ProductBlock(props) {
@@ -55,7 +48,7 @@ export default function ProductBlock(props) {
 
   return sortedProductArray(sorts).map((pro) => {
     return (
-      <Col xs={4} className="mb-4">
+      <Col key={`prod-${pro.id}`} xs={4} className="mb-4">
         <Card className="h-100 w-100 shadow border-0 bg-white rounded">
           <CardHeader className="h4">
             <Row className="justify-content-between">
@@ -88,7 +81,9 @@ export default function ProductBlock(props) {
             <p>
               Category:{" "}
               {Categories.map((cat) => {
-                if (cat.id === pro.categoryId) return cat.name;
+                if (cat.id === pro.categoryId)
+                  return <span key={`cat-${cat.id}`}>{cat.name}</span>;
+                return null;
               })}{" "}
             </p>
             <span className="leftright">
@@ -108,13 +103,13 @@ export default function ProductBlock(props) {
                 </Badge>
               </b>
               {!findUserData(pro.id) ? (
-                <CartEmpty key={pro.id} id={pro.id} price={pro.price} />
+                <CartEmpty key={`ce-${pro.id}`} id={pro.id} price={pro.price} />
               ) : (
                 user.map((u) => {
                   if (u.id === pro.id)
                     return u.buy > 0 ? (
                       <CartFull
-                        key={u.id}
+                        key={`cf-${u.id}`}
                         id={u.id}
                         buy={u.buy}
                         price={pro.price}

@@ -32,7 +32,7 @@ export default function Toolbar() {
             <Col md={1} className="text-center ms-4 mb-2 mt-2 fs-1">
               <span className="Options-header">
                 <BsFillGrid3X3GapFill size={80} />
-                <div class="Options-window">
+                <div className="Options-window">
                   <OptionsMenu />
                 </div>
               </span>
@@ -66,7 +66,7 @@ export default function Toolbar() {
             <Col md={1} className="text-center ms-2 mb-2 mt-2 fs-1">
               <span className="Options-header">
                 <BsFillGrid3X3GapFill size={80} />
-                <div class="Options-window">
+                <div className="Options-window">
                   <OptionsMenuLogged 
                   userId={userName.userId}
                   userName={userName.me}
