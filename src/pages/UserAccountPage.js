@@ -8,6 +8,7 @@ import { selectProducts } from "../store/products/selectors";
 import { selectAuth } from "../store/auth/selectors";
 import { getMyUserData } from "../store/auth/actions";
 import ReviewsDisplay from "../components/Reviews";
+import AdminMenu from "../components/AdminMenu";
 import {
   Col,
   Container,
@@ -40,8 +41,8 @@ export default function UserAccountPage() {
   const [showData, setShowData] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
-  const [stars, setStars] = useState(null);
-  const [content, setContent] = useState(null);
+  const [stars, setStars] = useState("");
+  const [content, setContent] = useState("");
   const [reviewId, setReviewId] = useState(0);
 
   const onClickReviews = () => setShowReviews((value) => !value);
@@ -76,7 +77,7 @@ export default function UserAccountPage() {
           </Row>
         </Container>
       ) : (
-        <>
+        <div>
           <Container>
             <Row className="">
               <Col md={12} className="h1 mt-5 mb-5 fw-bold text-center">
@@ -108,17 +109,14 @@ export default function UserAccountPage() {
                 >
                   {showData ? "Show less" : "Show more"}
                 </Button>
-                {/* <!-- Force next columns to break to new line --> */}
-                <div class="w-100"></div>
                 {showData ? (
-                  <>
-                    <div className="fs-4 text-start">
-                      <p>
-                        User Id: <b>{user.userData.id}</b>
-                      </p>
-                      <p>
-                        First Name: <b>{user.userData.firstname}</b>
-                        {/* <Button
+                  <div className="fs-4 text-start">
+                    <p>
+                      User Id: <b>{user.userData.id}</b>
+                    </p>
+                    <p>
+                      First Name: <b>{user.userData.firstname}</b>
+                      {/* <Button
                       variant="outline-success"
                       style={{ fontSize: "0.8rem", marginTop: "0.8rem" }}
                       className="ms-5 mb-3 "
@@ -126,10 +124,10 @@ export default function UserAccountPage() {
                     >
                       👉Update
                     </Button> */}
-                      </p>
-                      <p>
-                        Last Name: <b>{user.userData.lastname}</b>
-                        {/* <Button
+                    </p>
+                    <p>
+                      Last Name: <b>{user.userData.lastname}</b>
+                      {/* <Button
                       variant="outline-success"
                       style={{ fontSize: "0.8rem", marginTop: "0.8rem" }}
                       className="ms-5 mb-3 "
@@ -137,10 +135,10 @@ export default function UserAccountPage() {
                     >
                       👉Update
                     </Button> */}
-                      </p>
-                      <p>
-                        Email address: <b>{user.userData.email}</b>
-                        {/* <Button
+                    </p>
+                    <p>
+                      Email address: <b>{user.userData.email}</b>
+                      {/* <Button
                       variant="outline-success"
                       style={{ fontSize: "0.8rem", marginTop: "0.8rem" }}
                       className="ms-5 mb-3 "
@@ -148,10 +146,10 @@ export default function UserAccountPage() {
                     >
                       👉Update
                     </Button> */}
-                      </p>
-                      <p>
-                        Profile Image URL: <b>{user.userData.imageUrl}</b>
-                        {/* <Button
+                    </p>
+                    <p>
+                      Profile Image URL: <b>{user.userData.imageUrl}</b>
+                      {/* <Button
                       variant="outline-success"
                       style={{ fontSize: "0.8rem", marginTop: "0.8rem" }}
                       className="ms-5 mb-3 "
@@ -159,30 +157,27 @@ export default function UserAccountPage() {
                     >
                       👉Update
                     </Button> */}
-                      </p>
-                      <p>
-                        Profile Creation date:{" "}
-                        <b>
-                          {dateFormat(
-                            user.userData.createdAt,
-                            "dddd, mmmm dS, yyyy"
-                          )}
-                        </b>
-                      </p>
-                      <p>
-                        Last Profile Update:{" "}
-                        <b>
-                          {dateFormat(
-                            user.userData.updatedAt,
-                            "dddd, mmmm dS, yyyy"
-                          )}
-                        </b>
-                      </p>
-                      <p>
-                        {user.userData.is_Admin ? <b> yes</b> : <b> no</b>}
-                      </p>
-                    </div>
-                  </>
+                    </p>
+                    <p>
+                      Profile Creation date:{" "}
+                      <b>
+                        {dateFormat(
+                          user.userData.createdAt,
+                          "dddd, mmmm dS, yyyy"
+                        )}
+                      </b>
+                    </p>
+                    <p>
+                      Last Profile Update:{" "}
+                      <b>
+                        {dateFormat(
+                          user.userData.updatedAt,
+                          "dddd, mmmm dS, yyyy"
+                        )}
+                      </b>
+                    </p>
+                    <div>{!user.userData.is_Admin ? null : <AdminMenu />}</div>
+                  </div>
                 ) : null}
               </Col>
               <Col>
@@ -194,7 +189,7 @@ export default function UserAccountPage() {
                   {showReviews ? "Hide  my Reviews" : "Show my Reviews"}
                 </Button>
                 {/* <!-- Force next columns to break to new line --> */}
-                <div class="w-100"></div>
+                <div className="w-100"></div>
                 <h2>&nbsp;</h2>
                 {showReviews ? (
                   <Container id="target">
@@ -202,46 +197,44 @@ export default function UserAccountPage() {
                       <Col xs={12} className="">
                         {myReviews.map((r) => {
                           return (
-                            <>
-                              <div>
-                                <Card className="fs-5 mt-1 mb-1 fw-bold fst-italic bg-white rounded text-left">
-                                  👉{findProductName(r.productId)}
-                                </Card>
-                                <ReviewsDisplay
-                                  reviewId={r.id}
-                                  imageUrl={r.userImgUrl}
-                                  author={r.author}
-                                  prodId={r.productId}
-                                  content={r.content}
-                                  stars={r.stars}
-                                  userId={r.userId}
-                                  createdAt={r.createdAt}
-                                  updatedAt={r.updatedAt}
-                                />
-                                <Button
-                                  variant="success"
-                                  className="mb-3 fs-6"
-                                  onClick={() => {
-                                    dispatch(onClickForm);
-                                    findStars(r.stars);
-                                    findContent(r.content);
-                                    findReviewId(r.id);
-                                  }}
-                                >
-                                  Modify my Review
-                                </Button>{" "}
-                                <Button
-                                  variant="outline-danger"
-                                  className="mb-3 fs-6"
-                                  onClick={() => {
-                                    dispatch(onClickDelete);
-                                    findReviewId(r.id);
-                                  }}
-                                >
-                                  Erase my Review
-                                </Button>
-                              </div>
-                            </>
+                            <div key={r.id}>
+                              <Card className="fs-5 mt-1 mb-1 fw-bold fst-italic bg-white rounded text-left">
+                                👉{findProductName(r.productId)}
+                              </Card>
+                              <ReviewsDisplay
+                                reviewId={r.id}
+                                imageUrl={r.userImgUrl}
+                                author={r.author}
+                                prodId={r.productId}
+                                content={r.content}
+                                stars={r.stars}
+                                userId={r.userId}
+                                createdAt={r.createdAt}
+                                updatedAt={r.updatedAt}
+                              />
+                              <Button
+                                variant="success"
+                                className="mb-3 fs-6"
+                                onClick={() => {
+                                  dispatch(onClickForm());
+                                  findStars(r.stars);
+                                  findContent(r.content);
+                                  findReviewId(r.id);
+                                }}
+                              >
+                                Modify my Review
+                              </Button>{" "}
+                              <Button
+                                variant="outline-danger"
+                                className="mb-3 fs-6"
+                                onClick={() => {
+                                  dispatch(onClickDelete());
+                                  findReviewId(r.id);
+                                }}
+                              >
+                                Erase my Review
+                              </Button>
+                            </div>
                           );
                         })}
                       </Col>
@@ -264,7 +257,7 @@ export default function UserAccountPage() {
                     placeholder={`current: ${stars} ->(insert a number from 1 to 5)`}
                     value={stars}
                     onChange={(e) => setStars(e.target.value)}
-                    autoFocus //put cursor in this field
+                    autoFocus
                   />
                 </Form.Group>
                 <Form.Group className="mb-3">
@@ -330,7 +323,7 @@ export default function UserAccountPage() {
               </Button>
             </Modal.Footer>
           </Modal>
-        </>
+        </div>
       )}
       ;
     </>

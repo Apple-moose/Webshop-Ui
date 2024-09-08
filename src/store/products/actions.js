@@ -18,3 +18,79 @@ export const fetchProducts = async (dispatch) => {
     console.log(e.message);
   }
 };
+
+//
+
+export const createProduct = (
+  prodName,
+  prodPrice,
+  prodDesc,
+  prodImgUrl,
+  prodCategory
+) => {
+  return async function thunk() {
+    const tokenFromStorage = localStorage.getItem("tokenReceived");
+
+    try {
+      const response = await axios.post(
+        API_URL + "/product",
+        {
+          name: prodName,
+          price: prodPrice,
+          description: prodDesc,
+          imageUrl: prodImgUrl,
+          categoryId: prodCategory,
+        },
+        {
+          headers: { Authorization: `Bearer ${tokenFromStorage} ` },
+        }
+      );
+      return response.data;
+    } catch (err) {
+      console.log("User Login Error", err);
+    }
+  };
+};
+
+export const modifyProduct = (
+  prodId,
+  prodName,
+  prodPrice,
+  prodDesc,
+  prodImgUrl,
+  prodCategory
+) => {
+  return async function thunk() {
+    const tokenFromStorage = localStorage.getItem("tokenReceived");
+
+    try {
+      const response = await axios.post(
+        API_URL + `/product/${prodId}`,
+        {
+          name: prodName,
+          price: prodPrice,
+          description: prodDesc,
+          imageUrl: prodImgUrl,
+          categoryId: prodCategory,
+        },
+        {
+          headers: { Authorization: `Bearer ${tokenFromStorage} ` },
+        }
+      );
+      return response.data;
+    } catch (err) {
+      console.log("User Login Error", err);
+    }
+  };
+};
+
+export const deleteProduct = (prodId) => {
+  return async function thunk() {
+    const tokenFromStorage = localStorage.getItem("tokenReceived");
+    axios
+      .delete(API_URL + `/product/${prodId}`, {
+        headers: { Authorization: `Bearer ${tokenFromStorage} ` },
+      })
+      .catch((err) => console.log("error sending delete request", err));
+  };
+};
