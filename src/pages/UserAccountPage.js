@@ -216,7 +216,7 @@ export default function UserAccountPage() {
                                 variant="success"
                                 className="mb-3 fs-6"
                                 onClick={() => {
-                                  dispatch(onClickForm());
+                                  onClickForm();
                                   findStars(r.stars);
                                   findContent(r.content);
                                   findReviewId(r.id);
@@ -228,7 +228,7 @@ export default function UserAccountPage() {
                                 variant="outline-danger"
                                 className="mb-3 fs-6"
                                 onClick={() => {
-                                  dispatch(onClickDelete());
+                                  onClickDelete();
                                   findReviewId(r.id);
                                 }}
                               >
@@ -251,23 +251,29 @@ export default function UserAccountPage() {
             <Modal.Body>
               <Form>
                 <Form.Group className="mb-3">
-                  <Form.Label>Stars</Form.Label>
+                  <Form.Label htmlFor="stars">Stars</Form.Label>
                   <Form.Control
+                    id="stars"
+                    name="stars"
                     type="text"
                     placeholder={`current: ${stars} ->(insert a number from 1 to 5)`}
                     value={stars}
                     onChange={(e) => setStars(e.target.value)}
                     autoFocus
+                    autoComplete="off"
                   />
                 </Form.Group>
                 <Form.Group className="mb-3">
-                  <Form.Label>Review Content</Form.Label>
+                  <Form.Label htmlFor="content">Review Content</Form.Label>
                   <Form.Control
+                    id="content"
+                    name="content"
                     as="textarea"
                     rows={10}
                     placeholder={`${content} ->(max 200 characters)`}
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
+                    autoComplete="off"
                   />
                 </Form.Group>
               </Form>

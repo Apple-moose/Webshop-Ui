@@ -24,6 +24,8 @@ export default function HomePage() {
             <Row className="justify-content-md-left">
               <Col md="4">
                 <Form.Select
+                  id="sortProducts"
+                  name="sortProducts"
                   value={selectSorting}
                   onChange={(e) => {
                     setSelectSorting(e.target.value);
@@ -38,6 +40,8 @@ export default function HomePage() {
               </Col>
               <Col md="4">
                 <Form.Select
+                  id="filterCategories"
+                  name="filterCategories"
                   value={selectSorting}
                   onChange={(e) => {
                     setSelectSorting(e.target.value);

@@ -19,8 +19,8 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchCategory);
-    dispatch(fetchProducts);
+    dispatch(fetchCategory());
+    dispatch(fetchProducts());
     dispatch(bootstrapLogInState());
   }, [dispatch]);
 

@@ -11,6 +11,7 @@ const productsSlice = createSlice({
   reducers: {
     startLoading: (state) => {
       state.loading = true;
+      state.products = [];
     },
     productsFetched: (state, action) => {
       state.products = [...state.products, ...action.payload];

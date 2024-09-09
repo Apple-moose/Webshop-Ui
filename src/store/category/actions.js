@@ -3,7 +3,8 @@ import { startLoading, categoryFetched } from "./slice";
 
 const API_URL = `http://localhost:8000`;
 
-export const fetchCategory = async (dispatch) => {
+export const fetchCategory = () => {
+  return async (dispatch) => {
   try {
     dispatch(startLoading());
     const response = await axios.get(`${API_URL}/categories`);
@@ -12,7 +13,7 @@ export const fetchCategory = async (dispatch) => {
   } catch (e) {
     console.log(e.message);
   }
-};
+};};
 
 // export const fetchMyCategory = () => async (dispatch) => {
 //   const tokenFromStorage = localStorage.getItem("tokenReceived");

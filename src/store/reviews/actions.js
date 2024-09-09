@@ -3,28 +3,34 @@ import { startLoading, reviewsFetched } from "./slice";
 
 const API_URL = `http://localhost:8000`;
 
-export const fetchReviewsByProdId = (prodId) => async (dispatch) => {
-  try {
-    dispatch(startLoading());
-    const response = await axios.get(`${API_URL}/reviews/productId:${prodId}`);
-    const reviews = response.data;
-    dispatch(reviewsFetched(reviews));
-  } catch (e) {
-    console.log(e.message);
-  }
-};
- 
-export const fetchMyReviews = () => async (dispatch) => {
-  const tokenFromStorage = localStorage.getItem("tokenReceived");
-  axios
-    .get(API_URL + "/reviews/me", {
-      headers: { Authorization: `Bearer ${tokenFromStorage} ` },
-    })
-    .then((data) => {
+export const fetchReviewsByProdId = (prodId) => {
+  return async (dispatch) => {
+    try {
       dispatch(startLoading());
-      dispatch(reviewsFetched(data.data));
-    })
-    .catch((err) => console.log("err", err));
+      const response = await axios.get(
+        `${API_URL}/reviews/productId:${prodId}`
+      );
+      const reviews = response.data;
+      dispatch(reviewsFetched(reviews));
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+};
+
+export const fetchMyReviews = () => {
+  return async (dispatch) => {
+    const tokenFromStorage = localStorage.getItem("tokenReceived");
+    axios
+      .get(API_URL + "/reviews/me", {
+        headers: { Authorization: `Bearer ${tokenFromStorage} ` },
+      })
+      .then((data) => {
+        dispatch(startLoading());
+        dispatch(reviewsFetched(data.data));
+      })
+      .catch((err) => console.log("err", err));
+  };
 };
 
 export const modifyReview = (reviewId, stars, content) => {
@@ -42,7 +48,7 @@ export const modifyReview = (reviewId, stars, content) => {
           headers: { Authorization: `Bearer ${tokenFromStorage} ` },
         }
       );
-      return response.data; // Assuming you want to use the response data
+      return response.data;
     } catch (err) {
       console.log("User Login Error", err);
     }

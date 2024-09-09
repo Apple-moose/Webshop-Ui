@@ -41,8 +41,8 @@ export default function ProductPage() {
   const onClick = () => setShowReviews((value) => !value);
 
   const [showForm, setShowForm] = useState(false);
-  const [stars, setStars] = useState(null);
-  const [content, setContent] = useState(null);
+  const [stars, setStars] = useState("");
+  const [content, setContent] = useState("");
 
   const onHideForm = () => setShowForm(false);
   const onClickForm = () => setShowForm(true);
@@ -167,6 +167,7 @@ export default function ProductPage() {
                               price={product.price}
                             />
                           );
+                        return null;
                       })}
                     </Col>
                   </Row>
@@ -214,21 +215,27 @@ export default function ProductPage() {
                   <Form.Group className="mb-3">
                     <Form.Label>Stars</Form.Label>
                     <Form.Control
+                      id="reviewStars"
+                      name="reviewStars"
                       type="text"
                       placeholder={`(insert a number from 1 to 5)`}
                       value={stars}
                       onChange={(e) => setStars(e.target.value)}
                       autoFocus
+                      autoComplete="off"
                     />
                   </Form.Group>
                   <Form.Group className="mb-3">
                     <Form.Label>Review Content</Form.Label>
                     <Form.Control
+                      id="reviewContent"
+                      name="reviewContent"
                       as="textarea"
                       rows={10}
                       placeholder={`(max 200 characters)`}
                       value={content}
                       onChange={(e) => setContent(e.target.value)}
+                      autoComplete="off"
                     />
                   </Form.Group>
                 </Form>

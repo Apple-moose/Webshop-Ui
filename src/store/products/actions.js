@@ -5,18 +5,20 @@ import { bootstrapBank } from "../bank/slice";
 
 const API_URL = `http://localhost:8000`;
 
-export const fetchProducts = async (dispatch) => {
-  try {
-    dispatch(startLoading());
-    const response = await axios.get(`${API_URL}/products`);
-    const products = response.data;
-    dispatch(productsFetched(products));
-    //localStorage functions___________________________
-    dispatch(bootstrapUser());
-    dispatch(bootstrapBank());
-  } catch (e) {
-    console.log(e.message);
-  }
+export const fetchProducts = () => {
+  return async (dispatch) => {
+    try {
+      dispatch(startLoading());
+      const response = await axios.get(`${API_URL}/products`);
+      const products = response.data;
+      dispatch(productsFetched(products));
+      //localStorage functions___________________________
+      dispatch(bootstrapUser());
+      dispatch(bootstrapBank());
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
 };
 
 //
@@ -60,7 +62,7 @@ export const modifyProduct = (
   prodImgUrl,
   prodCategory
 ) => {
-  return async function thunk() {
+  return async function () {
     const tokenFromStorage = localStorage.getItem("tokenReceived");
 
     try {

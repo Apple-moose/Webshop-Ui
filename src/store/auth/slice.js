@@ -30,7 +30,6 @@ const authSlice = createSlice({
     },
     getUserData: (state, action) => {
       state.userData = action.payload;
-      console.log(state.userData);
     },
     userLogOut: (state) => {
       localStorage.removeItem("tokenReceived");

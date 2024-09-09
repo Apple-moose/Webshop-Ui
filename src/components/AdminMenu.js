@@ -1,6 +1,7 @@
 import "../style/global.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectProducts } from "../store/products/selectors";
 import {
@@ -11,39 +12,35 @@ import {
 
 import { Card, Button, Stack, Modal, Form } from "react-bootstrap";
 
-export default function AdminMenu(props) {
+export default function AdminMenu() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const product = useSelector(selectProducts);
 
   const [showNewProductForm, setShowNewProductForm] = useState(false);
   const [showUpdateProductForm, setShowUpdateProductForm] = useState(false);
-  const [prodSelected, setProdSelected] = useState([]);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [prodSelected, setProdSelected] = useState({});
   const [prodName, setProdName] = useState("");
   const [prodPrice, setProdPrice] = useState("");
   const [prodDesc, setProdDesc] = useState("");
   const [prodImgUrl, setProdImgUrl] = useState("");
   const [prodCategory, setProdCategory] = useState("");
 
-  //   console.log("prodSelected", prodSelected);
-  //   console.log("product", product);
-  console.log(
-    prodSelected.id,
-    prodName,
-    prodPrice,
-    prodDesc,
-    prodImgUrl,
-    prodCategory
-  );
-  //   const onClickReviews = () => setShowReviews((value) => !value);
-  //   const onClickData = () => setShowData((value) => !value);
   const onClickNewProductForm = () => setShowNewProductForm(true);
   const hideNewProductForm = () => setShowNewProductForm(false);
   const onClickUpdateProductForm = () => setShowUpdateProductForm(true);
   const hideUpdateProductForm = () => setShowUpdateProductForm(false);
-  //   const onHideDelete = () => setShowDelete(false);
-  //   const findStars = (s) => setStars(s);
-  //   const findContent = (c) => setContent(c);
-  //   const findReviewId = (r) => setReviewId(r);
+  const onClickShowConfirmation = () => setShowConfirmation(true);
+  const hideConfirmation = () => setShowConfirmation(false);
+  const handleProductChange = (product) => {
+    setProdSelected(product);
+    setProdName(product.name || "");
+    setProdPrice(product.price || "");
+    setProdDesc(product.description || "");
+    setProdImgUrl(product.imageUrl || "");
+    setProdCategory(product.categoryId || "");
+  };
 
   return (
     <>
@@ -94,52 +91,67 @@ export default function AdminMenu(props) {
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3">
-              <Form.Label>Product's Name</Form.Label>
+              <Form.Label htmlFor="newName">Product's Name</Form.Label>
               <Form.Control
+                id="newName"
+                name="newName"
                 type="text"
                 placeholder="product's title"
                 value={prodName}
                 onChange={(e) => setProdName(e.target.value)}
                 autoFocus
+                autoComplete="off"
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Product's Price</Form.Label>
+              <Form.Label htmlFor="newPrice">Product's Price</Form.Label>
               <Form.Control
+                id="newPrice"
+                name="newPrice"
                 type="text"
                 placeholder="price in €"
                 value={prodPrice}
                 onChange={(e) => setProdPrice(e.target.value)}
+                autoComplete="off"
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Product's Description</Form.Label>
+              <Form.Label htmlFor="newDesc">Product's Description</Form.Label>
               <Form.Control
+                id="newDesc"
+                name="newDesc"
                 as="textarea"
                 rows={8}
                 placeholder="->(max 200 characters)"
                 value={prodDesc}
                 onChange={(e) => setProdDesc(e.target.value)}
+                autoComplete="off"
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Product Image (Url)</Form.Label>
+              <Form.Label htmlFor="newUrl">Product Image (Url)</Form.Label>
               <Form.Control
+                id="newUrl"
+                name="newUrl"
                 as="textarea"
                 rows={1}
                 placeholder="Image URL"
                 value={prodImgUrl}
                 onChange={(e) => setProdImgUrl(e.target.value)}
+                autoComplete="off"
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Product's Category Id</Form.Label>
+              <Form.Label htmlFor="newCatId">Product's Category Id</Form.Label>
               <Form.Control
+                id="newCatId"
+                name="newCatId"
                 as="textarea"
                 rows={1}
                 placeholder="#Id"
                 value={prodCategory}
                 onChange={(e) => setProdCategory(e.target.value)}
+                autoComplete="off"
               />
             </Form.Group>
           </Form>
@@ -181,12 +193,14 @@ export default function AdminMenu(props) {
       <Modal show={showUpdateProductForm} onHide={hideUpdateProductForm}>
         <Modal.Header closeButton>
           <Form.Select
-            value={prodSelected.id}
+            id="productSelect"
+            name="productSelect"
+            value={prodSelected.id || ""}
             onChange={(e) => {
               const selectedProduct = product.find(
                 (pr) => pr.id.toString() === e.target.value
               );
-              setProdSelected(selectedProduct || "");
+              handleProductChange(selectedProduct || {});
             }}
           >
             <option value={""}>Choose a Product to Modify:</option>
@@ -203,27 +217,35 @@ export default function AdminMenu(props) {
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3">
-              <Form.Label>Product's Name</Form.Label>
+              <Form.Label htmlFor="prodname">Product's Name</Form.Label>
               <Form.Control
+                id="prodname"
+                name="prodname"
                 type="text"
                 placeholder={prodSelected.name || "Product's name"}
                 value={prodName || prodSelected.name || ""}
                 onChange={(e) => setProdName(e.target.value)}
                 autoFocus
+                autoComplete="off"
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Product's Price</Form.Label>
+              <Form.Label htmlFor="prodprice">Product's Price</Form.Label>
               <Form.Control
+                id="prodprice"
+                name="prodprice"
                 type="text"
                 placeholder={prodSelected.price || "price in €"}
                 value={prodPrice || prodSelected.price || ""}
                 onChange={(e) => setProdPrice(e.target.value)}
+                autoComplete="off"
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Product's Description</Form.Label>
+              <Form.Label htmlFor="proddesc">Product's Description</Form.Label>
               <Form.Control
+                id="proddesc"
+                name="proddesc"
                 as="textarea"
                 rows={8}
                 placeholder={
@@ -231,26 +253,33 @@ export default function AdminMenu(props) {
                 }
                 value={prodDesc || prodSelected.description || ""}
                 onChange={(e) => setProdDesc(e.target.value)}
+                autoComplete="off"
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Product Image (Url)</Form.Label>
+              <Form.Label htmlFor="produrl">Product Image (Url)</Form.Label>
               <Form.Control
+                id="produrl"
+                name="produrl"
                 as="textarea"
                 rows={1}
                 placeholder={prodSelected.imageUrl || "image URL"}
                 value={prodImgUrl || prodSelected.imageUrl || ""}
                 onChange={(e) => setProdImgUrl(e.target.value)}
+                autoComplete="off"
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Product's Category Id</Form.Label>
+              <Form.Label htmlFor="prodcatId">Product's Category Id</Form.Label>
               <Form.Control
+                id="prodcatId"
+                name="prodcatId"
                 as="textarea"
                 rows={1}
                 placeholder={prodSelected.categoryId || "category id"}
                 value={prodCategory || prodSelected.categoryId || ""}
                 onChange={(e) => setProdCategory(e.target.value)}
+                autoComplete="off"
               />
             </Form.Group>
           </Form>
@@ -274,6 +303,7 @@ export default function AdminMenu(props) {
                 .then(() => {
                   hideUpdateProductForm();
                   dispatch(fetchProducts());
+                  onClickShowConfirmation();
                 })
                 .catch((error) => {
                   console.error("failed to create new product!!", error);
@@ -287,36 +317,25 @@ export default function AdminMenu(props) {
           </Button>
         </Modal.Footer>
       </Modal>
-    </>
-  );
-}
 
-{
-  /* <Modal show={showDelete} onHide={onHideDelete}>
+      <Modal show={showConfirmation} onHide={hideConfirmation}>
         <Modal.Header closeButton>
-          <Modal.Title>Delete Review?</Modal.Title>
+          <Modal.Title>⭐️Operation Successful⭐️</Modal.Title>
         </Modal.Header>
         <Modal.Footer>
           <Button
             type="button"
             variant="warning"
             className="fs-6 fw-bold fst-italic"
-            onClick={() => {
-              dispatch(deleteReview(reviewId))
-                .then(() => {
-                  dispatch(fetchMyReviews());
-                  onHideDelete();
-                })
-                .catch((error) => {
-                  console.error("failed to delete reviews!!", error);
-                });
-            }}
+            onClick={() => navigate(`../${prodSelected.id}`)}
           >
-            Yes
+            Go to Product
           </Button>
-          <Button variant="secondary" onClick={onHideDelete}>
-            No
+          <Button variant="secondary" onClick={hideConfirmation}>
+            Stay in User's page
           </Button>
         </Modal.Footer>
-      </Modal> */
+      </Modal>
+    </>
+  );
 }
