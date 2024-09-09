@@ -312,7 +312,7 @@ export default function UserAccountPage() {
                 variant="warning"
                 className="fs-6 fw-bold fst-italic"
                 onClick={() => {
-                  dispatch(deleteReview(reviewId))
+                  return dispatch(deleteReview(reviewId))
                     .then(() => {
                       dispatch(fetchMyReviews());
                       onHideDelete();

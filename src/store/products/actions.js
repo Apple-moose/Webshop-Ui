@@ -11,12 +11,15 @@ export const fetchProducts = () => {
       dispatch(startLoading());
       const response = await axios.get(`${API_URL}/products`);
       const products = response.data;
-      dispatch(productsFetched(products));
-      //localStorage functions___________________________
-      dispatch(bootstrapUser());
-      dispatch(bootstrapBank());
+      await Promise.all([
+        dispatch(productsFetched(products)),
+        //localStorage functions___________________________
+        dispatch(bootstrapUser()),
+        dispatch(bootstrapBank()),
+      ]);
     } catch (e) {
       console.log(e.message);
+      throw e;
     }
   };
 };
@@ -47,7 +50,7 @@ export const createProduct = (
           headers: { Authorization: `Bearer ${tokenFromStorage} ` },
         }
       );
-      return response.data;
+      return response.data.id;
     } catch (err) {
       console.log("User Login Error", err);
     }
@@ -87,12 +90,16 @@ export const modifyProduct = (
 };
 
 export const deleteProduct = (prodId) => {
-  return async function thunk() {
+  return async function () {
     const tokenFromStorage = localStorage.getItem("tokenReceived");
-    axios
-      .delete(API_URL + `/product/${prodId}`, {
+
+    try {
+      const response = await axios.delete(API_URL + `/product/${prodId}`, {
         headers: { Authorization: `Bearer ${tokenFromStorage} ` },
-      })
-      .catch((err) => console.log("error sending delete request", err));
+      });
+      return response.data;
+    } catch (err) {
+      console.log("error sending delete request", err);
+    }
   };
 };

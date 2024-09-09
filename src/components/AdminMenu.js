@@ -4,10 +4,12 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectProducts } from "../store/products/selectors";
+import { selectCategory } from "../store/category/selectors";
 import {
   createProduct,
   modifyProduct,
   fetchProducts,
+  deleteProduct,
 } from "../store/products/actions";
 
 import { Card, Button, Stack, Modal, Form } from "react-bootstrap";
@@ -16,11 +18,16 @@ export default function AdminMenu() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const product = useSelector(selectProducts);
+  const category = useSelector(selectCategory);
 
   const [showNewProductForm, setShowNewProductForm] = useState(false);
   const [showUpdateProductForm, setShowUpdateProductForm] = useState(false);
+  const [showDeleteProductForm, setShowDeleteProductForm] = useState(false);
+  const [showCategoryForm, setShowCategoryForm] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
   const [prodSelected, setProdSelected] = useState({});
+  const [prodId, setProdId] = useState("");
   const [prodName, setProdName] = useState("");
   const [prodPrice, setProdPrice] = useState("");
   const [prodDesc, setProdDesc] = useState("");
@@ -30,11 +37,19 @@ export default function AdminMenu() {
   const onClickNewProductForm = () => setShowNewProductForm(true);
   const hideNewProductForm = () => setShowNewProductForm(false);
   const onClickUpdateProductForm = () => setShowUpdateProductForm(true);
+  const onClickDeleteProductForm = () => setShowDeleteProductForm(true);
+  const onClickUpdateCategoryForm = () => setShowCategoryForm(true);
   const hideUpdateProductForm = () => setShowUpdateProductForm(false);
+  const hideDeleteProductForm = () => setShowDeleteProductForm(false);
+  const hideCategoryForm = () => setShowCategoryForm(false);
   const onClickShowConfirmation = () => setShowConfirmation(true);
   const hideConfirmation = () => setShowConfirmation(false);
+  const onClickDelete = () => setShowDelete(true);
+  const onHideDelete = () => setShowDelete(false);
+
   const handleProductChange = (product) => {
     setProdSelected(product);
+    setProdId(product.id || "");
     setProdName(product.name || "");
     setProdPrice(product.price || "");
     setProdDesc(product.description || "");
@@ -66,20 +81,20 @@ export default function AdminMenu() {
           <Button
             variant="outline-danger"
             className="fs-4 fw-bold"
-            // onClick={() => {
-            // dispatch(userLogOut(), dispatch(newUserLogOut()), navigate("./"))
-            // }
+            onClick={() => {
+              onClickDeleteProductForm();
+            }}
           >
-            Add a new Category
+            Delete Product
           </Button>
           <Button
             variant="outline-info"
             className="fs-4 fw-bold"
-            // onClick={() => {
-            // dispatch(userLogOut(), dispatch(newUserLogOut()), navigate("./"))
-            // }
+            onClick={() => {
+              onClickUpdateCategoryForm();
+            }}
           >
-            Update Category
+            Update Categories
           </Button>
         </Stack>
       </Card>
@@ -141,19 +156,23 @@ export default function AdminMenu() {
                 autoComplete="off"
               />
             </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label htmlFor="newCatId">Product's Category Id</Form.Label>
-              <Form.Control
-                id="newCatId"
-                name="newCatId"
-                as="textarea"
-                rows={1}
-                placeholder="#Id"
-                value={prodCategory}
-                onChange={(e) => setProdCategory(e.target.value)}
-                autoComplete="off"
-              />
-            </Form.Group>
+            <Form.Label htmlFor="newCatId">Product's Category Id</Form.Label>
+            <Form.Select
+              id="newCatId"
+              name="newCatId"
+              value={prodCategory || prodSelected.categoryId || ""}
+              onChange={(e) => setProdCategory(e.target.value)}
+            >
+              <option value={""}>Choose a Product Category:</option>
+              {category.map((cat) => {
+                return (
+                  <option key={cat.id} value={cat.id}>
+                    {cat.name}
+                  </option>
+                );
+              })}
+              ;
+            </Form.Select>
           </Form>
         </Modal.Body>
         <Modal.Footer>
@@ -171,9 +190,14 @@ export default function AdminMenu() {
                   prodCategory
                 )
               )
-                .then(() => {
+                .then((newProdId) => {
                   hideNewProductForm();
-                  dispatch(fetchProducts());
+                  return dispatch(fetchProducts()).then(() =>
+                    setProdId(newProdId)
+                  );
+                })
+                .then(() => {
+                  onClickShowConfirmation();
                 })
                 .catch((error) => {
                   console.error("failed to create new product!!", error);
@@ -271,16 +295,22 @@ export default function AdminMenu() {
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label htmlFor="prodcatId">Product's Category Id</Form.Label>
-              <Form.Control
+              <Form.Select
                 id="prodcatId"
                 name="prodcatId"
-                as="textarea"
-                rows={1}
-                placeholder={prodSelected.categoryId || "category id"}
                 value={prodCategory || prodSelected.categoryId || ""}
                 onChange={(e) => setProdCategory(e.target.value)}
-                autoComplete="off"
-              />
+              >
+                <option value={""}>Choose a Product Category:</option>
+                {category.map((cat) => {
+                  return (
+                    <option key={cat.id} value={cat.id}>
+                      {cat.name}
+                    </option>
+                  );
+                })}
+                ;
+              </Form.Select>
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -292,7 +322,7 @@ export default function AdminMenu() {
             onClick={() => {
               dispatch(
                 modifyProduct(
-                  prodSelected.id,
+                  prodId,
                   prodName,
                   prodPrice,
                   prodDesc,
@@ -327,12 +357,174 @@ export default function AdminMenu() {
             type="button"
             variant="warning"
             className="fs-6 fw-bold fst-italic"
-            onClick={() => navigate(`../${prodSelected.id}`)}
+            onClick={() => navigate(`../${prodId}`)}
           >
             Go to Product
           </Button>
           <Button variant="secondary" onClick={hideConfirmation}>
             Stay in User's page
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* -o-o-o-o-o-o-o-o-o-o-o-o-o-o-o-o-o-o-o-o-o-o-o-o-o-o-o-o-o-o--o-o-o-o-o-o-o-o-o */}
+
+      <Modal show={showDeleteProductForm} onHide={hideDeleteProductForm}>
+        <Modal.Header closeButton>
+          <Form.Select
+            id="productDelete"
+            name="productDelete"
+            value={prodSelected.id || ""}
+            onChange={(e) => {
+              const selectedProduct = product.find(
+                (pr) => pr.id.toString() === e.target.value
+              );
+              handleProductChange(selectedProduct || {});
+            }}
+          >
+            <option value={""}>Choose a Product to Delete:</option>
+            {product.map((pr) => {
+              return (
+                <option key={pr.id} value={pr.id}>
+                  {pr.name}
+                </option>
+              );
+            })}
+            ;
+          </Form.Select>
+        </Modal.Header>
+        <Modal.Footer>
+          <Button
+            type="button"
+            variant="warning"
+            className="fs-6 fw-bold fst-italic"
+            onClick={() => {
+              onClickDelete();
+              hideDeleteProductForm();
+            }}
+          >
+            Erase {prodName} ?
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={showDelete} onHide={onHideDelete}>
+        <Modal.Header closeButton>
+          <Modal.Title>Please Confirm Delete Action</Modal.Title>
+        </Modal.Header>
+        <Modal.Footer>
+          <Button
+            type="button"
+            variant="warning"
+            className="fs-6 fw-bold fst-italic"
+            onClick={() => {
+              dispatch(deleteProduct(prodId))
+                .then(() => {
+                  // Once deleteProduct has completed, dispatch fetchProducts
+                  return dispatch(fetchProducts());
+                })
+                .then(() => {
+                  // After fetchProducts has completed, hide the delete modal
+                  onHideDelete();
+                })
+                .catch((error) => {
+                  console.error("failed to delete reviews!!", error);
+                });
+            }}
+          >
+            Yes
+          </Button>
+          <Button variant="secondary" onClick={onHideDelete}>
+            No
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* -o-o-o-o-o-o-o-o-o-o-o-o-o-o-o-o-o-o-o-o-o-o-o-o-o-o-o-o-o-o-o-o-o-o-o-o-o-o- */}
+
+      <Modal show={showCategoryForm} onHide={hideCategoryForm}>
+        <Modal.Header closeButton>
+          <Modal.Title>Categories update</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3">
+              <Form.Label htmlFor="newName">Change category's name</Form.Label>
+              <Form.Control
+                id="newName"
+                name="newName"
+                type="text"
+                placeholder="product's title"
+                value={prodName}
+                onChange={(e) => setProdName(e.target.value)}
+                autoFocus
+                autoComplete="off"
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label htmlFor="newPrice">add a new Category</Form.Label>
+              <Form.Control
+                id="newPrice"
+                name="newPrice"
+                type="text"
+                placeholder="price in €"
+                value={prodPrice}
+                onChange={(e) => setProdPrice(e.target.value)}
+                autoComplete="off"
+              />
+            </Form.Group>
+            <Form.Label htmlFor="newCatId">Delete a Category</Form.Label>
+            <Form.Select
+              id="newCatId"
+              name="newCatId"
+              value={prodCategory || prodSelected.categoryId || ""}
+              onChange={(e) => setProdCategory(e.target.value)}
+            >
+              <option value={""}>Choose a Product Category:</option>
+              {category.map((cat) => {
+                return (
+                  <option key={cat.id} value={cat.id}>
+                    {cat.name}
+                  </option>
+                );
+              })}
+              ;
+            </Form.Select>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            type="button"
+            variant="warning"
+            className="fs-6 fw-bold fst-italic"
+            onClick={() => {
+              dispatch(
+                createProduct(
+                  prodName,
+                  prodPrice,
+                  prodDesc,
+                  prodImgUrl,
+                  prodCategory
+                )
+              )
+                .then((newProdId) => {
+                  hideNewProductForm();
+                  return dispatch(fetchProducts()).then(() =>
+                    setProdId(newProdId)
+                  );
+                })
+                .then(() => {
+                  onClickShowConfirmation();
+                })
+                .catch((error) => {
+                  console.error("failed to create new product!!", error);
+                });
+            }}
+          >
+            Send New Data
+          </Button>
+          <Button variant="secondary" onClick={hideNewProductForm}>
+            Close
           </Button>
         </Modal.Footer>
       </Modal>
