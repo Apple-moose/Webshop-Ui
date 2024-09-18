@@ -432,11 +432,9 @@ export default function AdminMenu() {
             onClick={() => {
               dispatch(deleteProduct(prodId))
                 .then(() => {
-                  // Once deleteProduct has completed, dispatch fetchProducts
                   return dispatch(fetchProducts());
                 })
                 .then(() => {
-                  // After fetchProducts has completed, hide the delete modal
                   onHideDelete();
                   setProdId("");
                 })

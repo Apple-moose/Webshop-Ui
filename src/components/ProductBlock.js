@@ -128,4 +128,4 @@ export default function ProductBlock(props) {
       </Col>
     );
   });
-}
+} 
