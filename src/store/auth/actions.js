@@ -7,7 +7,8 @@ import {
   getUserData,
 } from "./slice";
 
-const API_URL = `http://localhost:8000`;
+// const API_URL = `http://localhost:8000`;
+const API_URL = `https://webshop-api-sr7l.onrender.com`;
 
 export function Login(email, password, navigate) {
   return async function thunk(dispatch, getState) {

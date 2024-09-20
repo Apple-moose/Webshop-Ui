@@ -1,7 +1,8 @@
 import axios from "axios";
 import { startLoading, categoryFetched } from "./slice";
 
-const API_URL = `http://localhost:8000`;
+// const API_URL = `http://localhost:8000`;
+const API_URL = `https://webshop-api-sr7l.onrender.com`;
 
 export const fetchCategory = () => {
   return async (dispatch) => {
