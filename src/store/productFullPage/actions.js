@@ -2,7 +2,7 @@ import axios from "axios";
 import { startLoading, productFullFetched } from "./slice";
 
 // const API_URL = `http://localhost:8000`;
-const API_URL = `https://webshop-api-sr7l.onrender.com`;
+const API_URL = `https://mooses-webshop.onrender.com`;
 
 
 export const fetchFullProduct = (id) => async (dispatch) => {

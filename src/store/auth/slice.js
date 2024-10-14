@@ -15,9 +15,14 @@ const authSlice = createSlice({
     startLoading: (state) => {
       state.loading = true;
     },
+    stopLoading: (state) => {
+      state.loading = false;
+    },
     getToken: (state, action) => {
       state.loading = false;
       state.accessToken = action.payload;
+      localStorage.setItem("tokenReceived", state.accessToken);
+
     },
     userLoggedIn: (state, action) => {
       state.loading = false;
@@ -43,7 +48,7 @@ const authSlice = createSlice({
   },
 });
 
-export const { startLoading, getToken, getUserId, getUserData, userLoggedIn, userLogOut } =
+export const { startLoading, stopLoading, getToken, getUserId, getUserData, userLoggedIn, userLogOut } =
   authSlice.actions;
 
 export default authSlice.reducer;

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { userLogOut } from "../store/auth/slice";
 import { newUserLogOut } from "../store/signup/slice";
 import { selectAuth } from "../store/auth/selectors";
+import { selectSignup } from "../store/signup/selectors";
 import { Card, Button, Stack } from "react-bootstrap";
 
 function OptionsMenu() {
@@ -54,6 +55,7 @@ function OptionsMenuLogged() {
   const dispatch = useDispatch();
 
   const auth = useSelector(selectAuth);
+  const signup = useSelector(selectSignup);
 
   return (
     <>
@@ -72,9 +74,9 @@ function OptionsMenuLogged() {
           <Button
             variant="outline-danger"
             className="fs-2 fw-bold"
-            onClick={() => navigate(`./User/${auth.userId}`)}
+            onClick={() => navigate(`./User/${auth.userId || signup.userId}`)}
           >
-            {auth.me}'s User Page
+            {auth.me || signup.me}'s User Page
           </Button>
           <Button
             variant="outline-info"

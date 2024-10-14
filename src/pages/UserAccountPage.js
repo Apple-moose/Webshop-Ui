@@ -5,6 +5,7 @@ import { selectReviews } from "../store/reviews/selectors";
 import { BsPersonCircle } from "react-icons/bs";
 import dateFormat from "dateformat";
 import { selectProducts } from "../store/products/selectors";
+import { selectSignup } from "../store/signup/selectors";
 import { selectAuth } from "../store/auth/selectors";
 import { getMyUserData } from "../store/auth/actions";
 import ReviewsDisplay from "../components/Reviews";
@@ -35,6 +36,7 @@ export default function UserAccountPage() {
 
   const myReviews = useSelector(selectReviews);
   const user = useSelector(selectAuth);
+  const newUser = useSelector(selectSignup);
   const product = useSelector(selectProducts);
 
   const [showReviews, setShowReviews] = useState(false);
@@ -68,7 +70,7 @@ export default function UserAccountPage() {
 
   return (
     <>
-      {!user.me ? (
+      {!user.me && !newUser.me ? (
         <Container>
           <Row className="">
             <Col md={12} className="h1 mt-5 mb-5 fw-bold text-center">
@@ -81,7 +83,7 @@ export default function UserAccountPage() {
           <Container>
             <Row className="">
               <Col md={12} className="h1 mt-5 mb-5 fw-bold text-center">
-                ⭐️{user.me}'s user Page⭐️
+                ⭐️{user.userData.firstname}'s user Page⭐️
               </Col>
             </Row>
             <Row>
